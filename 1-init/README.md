@@ -103,4 +103,21 @@ minikube service kibana-nodeport -n samma-io
 
 Then we can install our json that will setup the kibana dashbourds. They will make a error for we have not setup the index pattern but that will be resolved later when we start the scanner and they will send data to elastic
 
-![Log flow!](assets/grafana_samma.png)
+![Log flow!](assets/kibana1.png)
+![Log flow!](assets/kibana2.png)
+![Log flow!](assets/kibana3.png)
+![Log flow!](assets/kibana4.png)
+![Log flow!](assets/kibana5.png)
+![Log flow!](assets/kibana6.png)
+![Log flow!](assets/kibana7.png)
+![Log flow!](assets/kibana8.png)
+
+
+
+## Samma stack is ready
+
+So know we should have elasticsearch running connected to grafan and kibana. We also have setup our dashboards so we can see the result.
+Adn we are now ready for deploy targets and scanners.
+
+
+
