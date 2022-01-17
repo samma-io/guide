@@ -69,11 +69,15 @@ To make grafs easy samma.io has some base dashbourd that can be added. Today you
 
 ### Setup Grafana
 
-First open upp the grafana dashbourd
+First open upp the grafana dashbourd it should be defualt load the dashbouard from grafana but if not this are the manual steps performed.
 
 ```
 minikube service grafana-nodeport -n samma-io
 ```
+
+## Check if the samma dashboard is loaded
+
+If the dashbourd is not loaded performe the following steps
 
 Login with admin/admin 
 
@@ -89,3 +93,14 @@ Now you the samma dashbourd are loaded for grafanna !
 
 
 ### Setup Kibana
+
+Kibana we need to add the dashbouard manuall
+
+First open the gui
+```
+minikube service kibana-nodeport -n samma-io
+```
+
+Then we can install our json that will setup the kibana dashbourds. They will make a error for we have not setup the index pattern but that will be resolved later when we start the scanner and they will send data to elastic
+
+![Log flow!](assets/grafana_samma.png)
