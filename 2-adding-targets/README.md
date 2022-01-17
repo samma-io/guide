@@ -5,16 +5,29 @@ No its time to add targets that we can scan. And to do that we have some bas tar
 
 ### Apply firt targets
 
-```
-kubectl create namespace targets
-kubectl apply -f 2-target/target.yaml
-```
-
-This will deploy a list of targets into the target namespace. Wait untill all the targets has bena ready and then we can move on to deploy the scanners.
+Samma has a github repo that has some test targets they be deployd. You can find the targets here 
 
 
+Samma target repo 
+
+https://github.com/samma-io/targets
 ```
-kubectl get pods -n targets
+https://raw.githubusercontent.com/samma-io/targets/master/base/apache.yaml
+```
+
+
+You can also deploy then using github raw
+```
+kubectl apply -f https://raw.githubusercontent.com/samma-io/targets/master/base/apache.yaml
+kubectl apply -f https://raw.githubusercontent.com/samma-io/targets/master/base/nginx.yaml
+kubectl apply -f https://raw.githubusercontent.com/samma-io/targets/master/base/wordpress.yaml
+kubectl apply -f https://raw.githubusercontent.com/samma-io/targets/master/base/joomla.yaml
+```
+
+
+Now we should have some demo targets into the diffrent namespace. Wait untill all the targets has bean ready and then we can move on to deploy the scanners.
+```
+kubectl get pods -A 
 ```
 
 
