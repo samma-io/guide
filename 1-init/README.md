@@ -28,6 +28,15 @@ kubecte apply -f 1-deploy/highground.yaml
 ```
 kubectl get pods -n samma-io
 ```
+Should look something like this
+
+```
+matte@hrb:~/projects/samma/guide/1-init/1-deploy$ kubectl get pods -n samma-io
+NAME                              READY   STATUS    RESTARTS      AGE
+elasticsearch-549fd86dfd-4bj5m    1/1     Running   0             2m17s
+grafana-654f5bc67d-xf278          1/1     Running   0             5m41s
+kibana-784b565464-jjqdm           1/1     Running   0             5m41s
+```
 
 You should se our pods are in running state
 
@@ -52,3 +61,31 @@ minikube service samma-io/kibana
 
 ## No persitant data
 So have in mind this minikube and test has no data that will be saved. If the pods ore elasticsearch is killed all data will be gone.
+
+
+## Adding the samma-io Dashbourd
+To make grafs easy samma.io has some base dashbourd that can be added. Today you need to login into the tools and add json file to setup the dashbourds.
+
+
+### Setup Grafana
+
+First open upp the grafana dashbourd
+
+```
+minikube service grafana-nodeport -n samma-io
+```
+
+Login with admin/admin 
+
+![Log flow!](assets/grafana_login.png)
+![Log flow!](assets/grafana_import.png)
+![Log flow!](assets/grafana_paste.png)
+![Log flow!](assets/grafana_pickfile.png)
+![Log flow!](assets/grafana_load.png)
+![Log flow!](assets/grafana_samma.png)
+
+
+Now you the samma dashbourd are loaded for grafanna !
+
+
+### Setup Kibana

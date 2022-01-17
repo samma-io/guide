@@ -1,0 +1,240 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: samma-io
+  labels:
+    name: samma-io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+  namespace: samma-io
+  labels:
+    sammastack: elasticsearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sammastack: elasticsearch
+  template:
+    metadata:
+      labels:
+        sammastack: elasticsearch
+    spec:
+      containers:
+        - name: elasticsearch
+          image: "docker.elastic.co/elasticsearch/elasticsearch:7.15.0"
+          imagePullPolicy: Always
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: ES_JAVA_OPTS
+              value: -Xms2g -Xmx2g
+            - name: xpack.security.enabled
+              value: "false"
+          resources:
+            requests:
+              memory: "1G"
+              cpu: "250m"
+            limits:
+              memory: "3G"
+              cpu: "1000m"
+          ports:
+            - name: http
+              containerPort: 9200
+              protocol: TCP
+          livenessProbe:
+          readinessProbe:
+            httpGet:
+              path: /_cluster/health
+              port: http
+#          volumeMounts:
+#            - mountPath: /usr/share/elasticsearch/data
+#              name: data
+#      volumes:
+#        - name: data
+#  Add your host datat here if you want to keep data in elastuic
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: samma-io
+spec:
+  selector:
+    sammastack: elasticsearch
+  ports:
+    - protocol: TCP
+      port: 9200
+      targetPort: 9200
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: samma-io
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sammastack: kibana
+  template:
+    metadata:
+      labels:
+        sammastack: kibana
+    spec:
+      containers:
+        - name: kibana
+          image: "docker.elastic.co/kibana/kibana:7.15.0"
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1G"
+              cpu: "300m"
+          ports:
+            - name: http
+              containerPort: 5601
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: samma-io
+spec:
+  selector:
+    sammastack: kibana
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5601
+      targetPort: 5601
+---
+#
+# Added this so you can go to kibana from minikube 
+#   $minikube service kibana-nodeport -n samma-io
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana-nodeport
+  namespace: samma-io
+spec:
+  selector:
+    sammastack: kibana
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 5601
+      targetPort: 5601
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: samma-io
+data:
+  prometheus.yaml: |-
+    {
+            "apiVersion": 1,
+            "datasources": [
+              {
+                "name": "Samma-Elasticsearch",
+                "orgId": 1,
+                "type": "elasticsearch",
+                "url": "elasticsearch:9200",
+                "version": 1,
+                "database": 'samma-io-*',
+                "jsonData": {
+                "interval": "Daily",
+                "timeField": "@timestamp",
+                "esVersion": "7.10+"
+    
+                    }
+    
+    
+    
+    
+    
+                }
+          ]
+        }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: samma-io 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      name: grafana
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        ports:
+        - name: grafana
+          containerPort: 3000
+        env:
+        resources:
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+        volumeMounts:
+          #- mountPath: /var/lib/grafana
+          #  name: grafana-storage
+          - mountPath: /etc/grafana/provisioning/datasources
+            name: grafana-datasources
+            readOnly: false
+      volumes:
+      #  - name: grafana-storage
+
+        - name: grafana-datasources
+          configMap:
+              defaultMode: 420
+              name: grafana-datasources
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: samma-io
+spec:
+  selector: 
+    app: grafana
+  type: ClusterIP 
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-nodeport
+  namespace: samma-io
+spec:
+  selector: 
+    app: grafana
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+#minikube service grafana-nodeport -n samma-io
