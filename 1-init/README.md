@@ -13,17 +13,24 @@ If you have not already done so install minkube and veridy your minikune is work
 https://minikube.sigs.k8s.io/docs/start/
 
 
+## Deploy the Samma Operator and API
+
+
+```
+kubectl apply -f https://raw.githubusercontent.com/samma-io/operator/main/manifest/samma-operator.yaml
+```
+
+
 ## Deploy the samma tools
 Wi will start with deploying the highground into our minikube cluster
 
 
 ```
-kubectl create namespace samma-io
-kubecte apply -f 1-deploy/highground.yaml
+kubectl apply -f 1-deploy/highground.yaml
 ```
 
 
-## Verigy that the tools are working
+## Verify that the tools are working
 
 ```
 kubectl get pods -n samma-io
@@ -113,11 +120,6 @@ Then we can install our json that will setup the kibana dashbourds. They will ma
 ![Log flow!](assets/kibana8.png)
 
 
-
-## Samma stack is ready
-
-So know we should have elasticsearch running connected to grafan and kibana. We also have setup our dashboards so we can see the result.
-Adn we are now ready for deploy targets and scanners.
 
 
 
