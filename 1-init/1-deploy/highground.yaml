@@ -1,9 +1,4 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: samma-io
-  labels:
-    name: samma-io
+
 ---
 apiVersion: apps/v1
 kind: Deployment
