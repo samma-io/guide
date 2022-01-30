@@ -133,6 +133,7 @@ spec:
     - protocol: TCP
       port: 5601
       targetPort: 5601
+      nodePort: 30555
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -237,4 +238,5 @@ spec:
   ports:
     - port: 3000
       targetPort: 3000
+      nodePort: 30556
 #minikube service grafana-nodeport -n samma-io
