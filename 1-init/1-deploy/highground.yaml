@@ -236,6 +236,8 @@ spec:
       targetPort: 3000
       nodePort: 30556
 ---
+
+#minikube service grafana-nodeport -n samma-io
 ---
 apiVersion: v1
 kind: Service
@@ -243,11 +245,11 @@ metadata:
   name: api-nodeport
   namespace: samma-io
 spec:
-  selector: 
+  ports:
+  - port: 80
+    name: api
+    targetPort: 80
+    nodePort: 30557
+  selector:
     app: samma-api
   type: NodePort
-  ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 30557
-#minikube service grafana-nodeport -n samma-io
