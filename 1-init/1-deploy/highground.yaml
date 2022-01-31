@@ -188,10 +188,10 @@ spec:
         env:
         resources:
           limits:
-            memory: "512Gi"
+            memory: "512Mi"
             cpu: "300m"
           requests:
-            memory: "256Gi"
+            memory: "256Mi"
             cpu: "200m"
         volumeMounts:
           #- mountPath: /var/lib/grafana
