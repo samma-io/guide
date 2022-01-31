@@ -50,7 +50,7 @@ Wi will start with deploying the highground into our minikube cluster
 
 
 ```
-kubectl apply -f 1-deploy/highground.yaml
+kubectl apply -f https://raw.githubusercontent.com/samma-io/guide/main/1-init/1-deploy/highground.yaml
 ```
 
 

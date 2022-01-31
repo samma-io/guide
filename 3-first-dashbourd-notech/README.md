@@ -1,6 +1,17 @@
 ## Time to work with the dashbourd
 
 
+## Samma Api
+First lets go to our samma api and look at the scanners we have 
+
+```
+minikube service api  -n samma-io
+```
+
+Open the browser and look at the api
+Here you should see some targets that we added.
+You can also delete ore create new targets 
+
 ## Grafana
 
 Login into grafana and go to the samma dashboard. (login with admin/admin)

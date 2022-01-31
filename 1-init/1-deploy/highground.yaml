@@ -146,13 +146,12 @@ data:
                 "name": "Samma-Elasticsearch",
                 "orgId": 1,
                 "type": "elasticsearch",
-                "url": "elasticsearch:9200",
+                "url": "http://elasticsearch:9200",
                 "version": 1,
-                "database": 'samma-io-*',
+                "database": 'samma-io*',
                 "jsonData": {
-                "interval": "Daily",
                 "timeField": "@timestamp",
-                "esVersion": "7.10+"
+                "esVersion": "7.10.0"
     
                     }
     

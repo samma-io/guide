@@ -17,7 +17,7 @@ apt-get install \
     ca-certificates \
     curl \
     gnupg \
-    lsb-release
+    lsb-release -y
 
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -34,6 +34,12 @@ apt-get install docker-ce docker-ce-cli containerd.io -y
 
 
 echo "Setup kdeadm"
+echo "Set docker to use systemd"
+echo '{  "exec-opts": ["native.cgroupdriver=systemd"]}' > /etc/docker/daemon.json
+systemctl restart docker
+echo "Remove swap"
+sed 's/\/swap/##Removed swap/g' -i  /etc/fstab
+swappoff -a
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 br_netfilter
 EOF
@@ -63,7 +69,11 @@ apt-mark hold kubelet kubeadm kubectl
 
 echo "Setup the cluster"
 
-kubeadm init --ignore-preflight-errors=KubeletVersion --pod-network-cidr=192.168.0.0/16
+kubeadm init --ignore-preflight-errors=KubeletVersion --pod-network-cidr=10.78.13.0/16
 
 export KUBECONFIG=/etc/kubernetes/admin.conf
 kubectl taint nodes --all node-role.kubernetes.io/master-
+
+
+echo "Install calico network"
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
