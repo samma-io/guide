@@ -29,7 +29,7 @@ spec:
             - name: xpack.security.enabled
               value: "false"
             - name: xpack.ml.enabled
-              value: "false2
+              value: "false2"
           resources:
             requests:
               memory: "1G"
