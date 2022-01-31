@@ -25,7 +25,7 @@ spec:
             - name: discovery.type
               value: single-node
             - name: ES_JAVA_OPTS
-              value: -Xms1g -Xmx1g
+              value: -Xms2g -Xmx2g
             - name: xpack.security.enabled
               value: "false"
           resources:
@@ -33,7 +33,7 @@ spec:
               memory: "1G"
               cpu: "250m"
             limits:
-              memory: "2G"
+              memory: "3G"
               cpu: "1000m"
           ports:
             - name: http
