@@ -28,6 +28,8 @@ spec:
               value: -Xms2g -Xmx2g
             - name: xpack.security.enabled
               value: "false"
+            - name: xpack.ml.enabled
+              value: "false2
           resources:
             requests:
               memory: "1G"
