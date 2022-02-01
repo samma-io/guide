@@ -138,8 +138,9 @@ To make graf easy samma.io has some base dashbourd that can be added. Today you 
 
 
 ### Setup Grafana
+Grafana should already be setup and ready to use. 
+Verify you can login and look at the samma dashbourd. Theer are now scanners running so there will be no resoult on the grafs.
 
-First open upp the grafana dashbourd it should be defualt load the dashbouard from grafana but if not this are the manual steps performed.
 
 ```
 minikube service grafana-nodeport -n samma-io
@@ -147,19 +148,20 @@ minikube service grafana-nodeport -n samma-io
 
 ## Check if the samma dashboard is loaded
 
-If the dashbourd is not loaded performe the following steps
-
-Login with admin/admin 
-
-![Log flow!](assets/grafana_login.png)
-![Log flow!](assets/grafana_import.png)
-![Log flow!](assets/grafana_paste.png)
-![Log flow!](assets/grafana_pickfile.png)
-![Log flow!](assets/grafana_load.png)
-![Log flow!](assets/grafana_samma.png)
+```
+Login with samma/samma-io 
+```
 
 
-Now you the samma dashbourd are loaded for grafanna !
+
+## Samma API
+Load the samma api by
+
+```
+minikube service api -n samma-io
+```
+
+Verify you have access and can see the samma api page
 
 
 ### Setup Kibana
@@ -186,10 +188,5 @@ Then we can install our json that will setup the kibana dashbourds. They will ma
 
 
 
-## Samma API
 
-Load the samma api by
-
-
-minikube service api -n samma-io
 

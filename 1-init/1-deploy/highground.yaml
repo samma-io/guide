@@ -146,6 +146,1283 @@ spec:
       port: 5601
       targetPort: 5601
       nodePort: 30565
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: samma-dashbourd
+  namespace: samma-io
+data:
+  samma.json: |-
+     {
+       "annotations": {
+         "list": [
+           {
+             "builtIn": 1,
+             "datasource": "-- Grafana --",
+             "enable": true,
+             "hide": true,
+             "iconColor": "rgba(0, 211, 255, 1)",
+             "name": "Annotations & Alerts",
+             "target": {
+               "limit": 100,
+               "matchAny": false,
+               "tags": [],
+               "type": "dashboard"
+             },
+             "type": "dashboard"
+           }
+         ]
+       },
+       "editable": true,
+       "fiscalYearStartMonth": 0,
+       "gnetId": null,
+       "graphTooltip": 0,
+       "id": 1,
+       "links": [],
+       "liveNow": false,
+       "panels": [
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "palette-classic"
+               },
+               "custom": {
+                 "axisLabel": "",
+                 "axisPlacement": "auto",
+                 "barAlignment": 0,
+                 "drawStyle": "line",
+                 "fillOpacity": 0,
+                 "gradientMode": "none",
+                 "hideFrom": {
+                   "legend": false,
+                   "tooltip": false,
+                   "viz": false
+                 },
+                 "lineInterpolation": "linear",
+                 "lineWidth": 1,
+                 "pointSize": 5,
+                 "scaleDistribution": {
+                   "type": "linear"
+                 },
+                 "showPoints": "auto",
+                 "spanNulls": false,
+                 "stacking": {
+                   "group": "A",
+                   "mode": "none"
+                 },
+                 "thresholdsStyle": {
+                   "mode": "off"
+                 }
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 24,
+             "x": 0,
+             "y": 0
+           },
+           "id": 4,
+           "options": {
+             "legend": {
+               "calcs": [],
+               "displayMode": "list",
+               "placement": "bottom"
+             },
+             "tooltip": {
+               "mode": "single"
+             }
+           },
+           "targets": [
+             {
+               "alias": "Nikto",
+               "bucketAggs": [
+                 {
+                   "field": "@timestamp",
+                   "id": "2",
+                   "settings": {
+                     "interval": "auto"
+                   },
+                   "type": "date_histogram"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "samma-io.scanner: nikto",
+               "refId": "A",
+               "timeField": "@timestamp"
+             },
+             {
+               "alias": "Tsunami",
+               "bucketAggs": [
+                 {
+                   "field": "@timestamp",
+                   "id": "2",
+                   "settings": {
+                     "interval": "auto"
+                   },
+                   "type": "date_histogram"
+                 }
+               ],
+               "hide": false,
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "samma-io.scanner: tsunami",
+               "refId": "B",
+               "timeField": "@timestamp"
+             },
+             {
+               "alias": "Nmap",
+               "bucketAggs": [
+                 {
+                   "field": "@timestamp",
+                   "id": "2",
+                   "settings": {
+                     "interval": "auto"
+                   },
+                   "type": "date_histogram"
+                 }
+               ],
+               "hide": false,
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "samma-io.scanner: nmap*",
+               "refId": "C",
+               "timeField": "@timestamp"
+             },
+             {
+               "alias": "Base",
+               "bucketAggs": [
+                 {
+                   "field": "@timestamp",
+                   "id": "2",
+                   "settings": {
+                     "interval": "auto"
+                   },
+                   "type": "date_histogram"
+                 }
+               ],
+               "hide": false,
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "samma-io.scanner: base",
+               "refId": "D",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Scanners Running",
+           "type": "timeseries"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "thresholds"
+               },
+               "custom": {
+                 "align": "auto",
+                 "displayMode": "auto"
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 0,
+             "y": 8
+           },
+           "id": 29,
+           "options": {
+             "showHeader": true
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "networkEndpoint.ipAddress.address",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "field": "networkEndpoint.ipAddress.address",
+                   "id": "1",
+                   "type": "cardinality"
+                 }
+               ],
+               "query": "samma-io.scanner: tsunami ",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Tsunami IP Address",
+           "type": "table"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "palette-classic"
+               },
+               "custom": {
+                 "hideFrom": {
+                   "legend": false,
+                   "tooltip": false,
+                   "viz": false
+                 }
+               },
+               "mappings": []
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 12,
+             "y": 8
+           },
+           "id": 27,
+           "options": {
+             "displayLabels": [
+               "value"
+             ],
+             "legend": {
+               "displayMode": "list",
+               "placement": "bottom"
+             },
+             "pieType": "pie",
+             "reduceOptions": {
+               "calcs": [
+                 "lastNotNull"
+               ],
+               "fields": "/^networkEndpoint\\.port.portNumber$/",
+               "values": true
+             },
+             "tooltip": {
+               "mode": "single"
+             }
+           },
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "networkEndpoint.port.portNumber",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "samma-io.scanner: tsunami AND networkEndpoint.port.portNumber:*",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Tsunami Ports Find",
+           "type": "piechart"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "palette-classic"
+               },
+               "custom": {
+                 "hideFrom": {
+                   "legend": false,
+                   "tooltip": false,
+                   "viz": false
+                 }
+               },
+               "mappings": []
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 0,
+             "y": 16
+           },
+           "id": 25,
+           "options": {
+             "legend": {
+               "displayMode": "list",
+               "placement": "bottom"
+             },
+             "pieType": "pie",
+             "reduceOptions": {
+               "calcs": [
+                 "lastNotNull"
+               ],
+               "fields": "",
+               "values": true
+             },
+             "tooltip": {
+               "mode": "single"
+             }
+           },
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "software.name",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "field": "software.name",
+                   "id": "1",
+                   "type": "cardinality"
+                 }
+               ],
+               "query": "samma-io.scanner: tsunami",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Tsunami Software Found",
+           "type": "piechart"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "palette-classic"
+               },
+               "custom": {
+                 "hideFrom": {
+                   "legend": false,
+                   "tooltip": false,
+                   "viz": false
+                 }
+               },
+               "mappings": []
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 12,
+             "y": 16
+           },
+           "id": 21,
+           "options": {
+             "displayLabels": [
+               "value"
+             ],
+             "legend": {
+               "displayMode": "list",
+               "placement": "bottom"
+             },
+             "pieType": "pie",
+             "reduceOptions": {
+               "calcs": [
+                 "lastNotNull"
+               ],
+               "fields": "/^Count$/",
+               "values": true
+             },
+             "tooltip": {
+               "mode": "single"
+             }
+           },
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "protocol",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "samma-io.scanner: nmap*",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Nmap Protocol",
+           "type": "piechart"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "thresholds"
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 0,
+             "y": 24
+           },
+           "id": 23,
+           "options": {
+             "colorMode": "value",
+             "graphMode": "area",
+             "justifyMode": "auto",
+             "orientation": "auto",
+             "reduceOptions": {
+               "calcs": [
+                 "lastNotNull"
+               ],
+               "fields": "",
+               "values": false
+             },
+             "text": {},
+             "textMode": "auto"
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "type",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "field": "target",
+                   "id": "1",
+                   "type": "cardinality"
+                 }
+               ],
+               "query": "samma-io.scanner: nmap*",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Nmap Targets",
+           "type": "stat"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "palette-classic"
+               },
+               "custom": {
+                 "hideFrom": {
+                   "legend": false,
+                   "tooltip": false,
+                   "viz": false
+                 }
+               },
+               "mappings": []
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 12,
+             "y": 24
+           },
+           "id": 20,
+           "options": {
+             "displayLabels": [
+               "value"
+             ],
+             "legend": {
+               "displayMode": "list",
+               "placement": "bottom"
+             },
+             "pieType": "pie",
+             "reduceOptions": {
+               "calcs": [
+                 "lastNotNull"
+               ],
+               "fields": "/^port$/",
+               "values": true
+             },
+             "tooltip": {
+               "mode": "single"
+             }
+           },
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "port",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "samma-io.scanner: nmap*",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Nmap Ports Find",
+           "type": "piechart"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "thresholds"
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 0,
+             "y": 32
+           },
+           "id": 18,
+           "options": {
+             "colorMode": "value",
+             "graphMode": "area",
+             "justifyMode": "auto",
+             "orientation": "auto",
+             "reduceOptions": {
+               "calcs": [
+                 "lastNotNull"
+               ],
+               "fields": "",
+               "values": false
+             },
+             "text": {},
+             "textMode": "auto"
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "samma-io.scanner",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "field": "IP",
+                   "id": "1",
+                   "type": "cardinality"
+                 }
+               ],
+               "query": "samma-io.scanner: base ",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Recon IP Total",
+           "type": "stat"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "thresholds"
+               },
+               "custom": {
+                 "align": "auto",
+                 "displayMode": "auto"
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 12,
+             "y": 32
+           },
+           "id": 15,
+           "options": {
+             "showHeader": true
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "HostName",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "Type : \" A\"",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "A Records",
+           "type": "table"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "thresholds"
+               },
+               "custom": {
+                 "align": "auto",
+                 "displayMode": "auto"
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 0,
+             "y": 40
+           },
+           "id": 14,
+           "options": {
+             "showHeader": true
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "HostName",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "Type : \" NS\"",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Nameservers",
+           "type": "table"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "thresholds"
+               },
+               "custom": {
+                 "align": "auto",
+                 "displayMode": "auto"
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 12,
+             "y": 40
+           },
+           "id": 16,
+           "options": {
+             "showHeader": true
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "HostName",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "Type : \" PTR\"",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "PTR Records",
+           "type": "table"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "thresholds"
+               },
+               "custom": {
+                 "align": "auto",
+                 "displayMode": "auto"
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 0,
+             "y": 48
+           },
+           "id": 6,
+           "options": {
+             "showHeader": true
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "finding",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "0"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "type: Nikto",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Nikto Findings",
+           "type": "table"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "thresholds"
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 12,
+             "y": 48
+           },
+           "id": 10,
+           "options": {
+             "orientation": "auto",
+             "reduceOptions": {
+               "calcs": [
+                 "lastNotNull"
+               ],
+               "fields": "",
+               "values": false
+             },
+             "showThresholdLabels": false,
+             "showThresholdMarkers": true,
+             "text": {}
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "target",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "field": "finding",
+                   "id": "1",
+                   "type": "cardinality"
+                 }
+               ],
+               "query": "_exists_:finding",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Nikto Findings / Target",
+           "type": "gauge"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "thresholds"
+               },
+               "mappings": [],
+               "thresholds": {
+                 "mode": "absolute",
+                 "steps": [
+                   {
+                     "color": "green",
+                     "value": null
+                   },
+                   {
+                     "color": "red",
+                     "value": 80
+                   }
+                 ]
+               }
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 8,
+             "w": 12,
+             "x": 0,
+             "y": 56
+           },
+           "id": 8,
+           "options": {
+             "orientation": "auto",
+             "reduceOptions": {
+               "calcs": [
+                 "lastNotNull"
+               ],
+               "fields": "",
+               "values": false
+             },
+             "showThresholdLabels": false,
+             "showThresholdMarkers": true,
+             "text": {}
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "target",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "field": "target",
+                   "id": "1",
+                   "type": "cardinality"
+                 }
+               ],
+               "query": "type: Nikto",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Nikto Targets",
+           "type": "gauge"
+         },
+         {
+           "datasource": "Samma-Elasticsearch",
+           "fieldConfig": {
+             "defaults": {
+               "color": {
+                 "mode": "palette-classic"
+               },
+               "custom": {
+                 "hideFrom": {
+                   "legend": false,
+                   "tooltip": false,
+                   "viz": false
+                 }
+               },
+               "mappings": []
+             },
+             "overrides": []
+           },
+           "gridPos": {
+             "h": 9,
+             "w": 12,
+             "x": 12,
+             "y": 56
+           },
+           "id": 2,
+           "options": {
+             "displayLabels": [],
+             "legend": {
+               "displayMode": "list",
+               "placement": "bottom",
+               "values": []
+             },
+             "pieType": "pie",
+             "reduceOptions": {
+               "calcs": [
+                 "lastNotNull"
+               ],
+               "fields": "/.*/",
+               "values": true
+             },
+             "tooltip": {
+               "mode": "single"
+             }
+           },
+           "pluginVersion": "8.2.1",
+           "targets": [
+             {
+               "alias": "",
+               "bucketAggs": [
+                 {
+                   "field": "OSVDB",
+                   "id": "2",
+                   "settings": {
+                     "min_doc_count": "1",
+                     "order": "desc",
+                     "orderBy": "_term",
+                     "size": "10"
+                   },
+                   "type": "terms"
+                 }
+               ],
+               "metrics": [
+                 {
+                   "id": "1",
+                   "type": "count"
+                 }
+               ],
+               "query": "type: Nikto",
+               "refId": "A",
+               "timeField": "@timestamp"
+             }
+           ],
+           "title": "Nikto OSVDB",
+           "type": "piechart"
+         }
+       ],
+       "schemaVersion": 31,
+       "style": "dark",
+       "tags": [],
+       "templating": {
+         "list": []
+       },
+       "time": {
+         "from": "now-24h",
+         "to": "now"
+       },
+       "timepicker": {},
+       "timezone": "",
+       "title": "Samma.io",
+       "uid": "389K2rv7z",
+       "version": 2
+     }  
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashbourd
+  namespace: samma-io
+data:
+  samma.yaml: |-
+    apiVersion: 1
+    providers:
+      # <string> an unique provider name. Required
+      - name: 'Samma'
+        # <int> Org id. Default to 1
+        orgId: 1
+        # <string> name of the dashboard folder.
+        folder: 'Samma'
+        # <string> folder UID. will be automatically generated if not specified
+        folderUid: ''
+        # <string> provider type. Default to 'file'
+        type: file
+        # <bool> disable dashboard deletion
+        disableDeletion: false
+        # <int> how often Grafana will scan for changed dashboards
+        updateIntervalSeconds: 10
+        # <bool> allow updating provisioned dashboards from the UI
+        allowUiUpdates: false
+        options:
+          # <string, required> path to dashboard files on disk. Required when using the 'file' type
+          path: /samma/dashboards
+          # <bool> use folder names from filesystem to create folders in Grafana
+          foldersFromFilesStructure: true    
 
 ---
 apiVersion: v1
@@ -203,6 +1480,10 @@ spec:
         - name: grafana
           containerPort: 3000
         env:
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            value: "samma-io"
+          - name: GF_SECURITY_ADMIN_USER
+            value: "samma"
         resources:
           limits:
             memory: "512Mi"
@@ -213,17 +1494,28 @@ spec:
         volumeMounts:
           #- mountPath: /var/lib/grafana
           #  name: grafana-storage
+          - mountPath: /etc/grafana/provisioning/dashboards
+            name: grafana-dashbourd
+            readOnly: false
           - mountPath: /etc/grafana/provisioning/datasources
             name: grafana-datasources
             readOnly: false
+          - mountPath: /samma/dashboards
+            name: samma-dashbourd
+            readOnly: false
       volumes:
-      #  - name: grafana-storage
-
         - name: grafana-datasources
           configMap:
               defaultMode: 420
               name: grafana-datasources
-
+        - name: grafana-dashbourd
+          configMap:
+              defaultMode: 420
+              name: grafana-dashbourd
+        - name: samma-dashbourd
+          configMap:
+              defaultMode: 420
+              name: samma-dashbourd
 ---
 apiVersion: v1
 kind: Service
