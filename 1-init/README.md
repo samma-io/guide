@@ -94,7 +94,7 @@ replicaset.apps/samma-api-596d889f59        1         1         1       16m
 replicaset.apps/samma-operator-6696dc4bcf   1         1         1       16m
 ```
 
-You should se our pods are in running state
+You should se our pods are in running state. If the Elasticsearch pod is not ready then wait some untill it is in running state
 
 
 ## Get access to dashbourds
