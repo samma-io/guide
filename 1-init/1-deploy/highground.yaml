@@ -277,7 +277,7 @@ spec:
   ports:
   - port: 80
     name: api
-    targetPort: 80
+    targetPort: 8080
     nodePort: 30557
   selector:
     app: samma-api
@@ -293,7 +293,7 @@ spec:
   ports:
   - port: 80
     name: api
-    targetPort: 80
+    targetPort: 8080
     nodePort: 30567
   selector:
     app: samma-api
