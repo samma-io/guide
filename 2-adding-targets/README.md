@@ -31,6 +31,13 @@ Now we should have some demo targets into the diffrent namespace. Wait untill al
 kubectl get pods -A 
 ```
 
+when all the targets are running we can deploy our scanner 
+
+
+```
+kubectl apply -f https://raw.githubusercontent.com/samma-io/targets/master/base/scanner.yaml
+```
+
 
 ### Lets check our scanners.
 The scanners will be set to scan the target at a high phase 1 every 5 min. So please check so that your computer can handle the load. If any problems run the delete command bellow.
@@ -53,4 +60,6 @@ kubectl delete -f https://raw.githubusercontent.com/samma-io/targets/master/base
 kubectl delete -f https://raw.githubusercontent.com/samma-io/targets/master/base/nginx.yaml
 kubectl delete -f https://raw.githubusercontent.com/samma-io/targets/master/base/wordpress.yaml
 kubectl delete -f https://raw.githubusercontent.com/samma-io/targets/master/base/joomla.yaml
+
+kubectl delete -f https://raw.githubusercontent.com/samma-io/targets/master/base/scanner.yaml
 ```

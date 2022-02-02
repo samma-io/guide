@@ -1501,7 +1501,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: samma
+  name: samma-lb
   namespace: samma-io
 spec:
   ports:
