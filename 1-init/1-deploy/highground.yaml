@@ -238,7 +238,7 @@ data:
                    "type": "count"
                  }
                ],
-               "query": "samma-io.scanner: nikto",
+               "query": "scanner: nikto",
                "refId": "A",
                "timeField": "@timestamp"
              },
@@ -261,7 +261,7 @@ data:
                    "type": "count"
                  }
                ],
-               "query": "samma-io.scanner: tsunami",
+               "query": "scanner: tsunami",
                "refId": "B",
                "timeField": "@timestamp"
              },
@@ -284,7 +284,7 @@ data:
                    "type": "count"
                  }
                ],
-               "query": "samma-io.scanner: nmap*",
+               "query": "scanner: nmap*",
                "refId": "C",
                "timeField": "@timestamp"
              },
@@ -307,7 +307,7 @@ data:
                    "type": "count"
                  }
                ],
-               "query": "samma-io.scanner: base",
+               "query": "scanner: base",
                "refId": "D",
                "timeField": "@timestamp"
              }
@@ -377,7 +377,7 @@ data:
                    "type": "cardinality"
                  }
                ],
-               "query": "samma-io.scanner: tsunami ",
+               "query": "scanner: tsunami ",
                "refId": "A",
                "timeField": "@timestamp"
              }
@@ -452,7 +452,7 @@ data:
                    "type": "count"
                  }
                ],
-               "query": "samma-io.scanner: tsunami AND networkEndpoint.port.portNumber:*",
+               "query": "scanner: tsunami AND networkEndpoint.port.portNumber:*",
                "refId": "A",
                "timeField": "@timestamp"
              }
@@ -525,7 +525,7 @@ data:
                    "type": "cardinality"
                  }
                ],
-               "query": "samma-io.scanner: tsunami",
+               "query": "scanner: tsunami",
                "refId": "A",
                "timeField": "@timestamp"
              }
@@ -600,7 +600,7 @@ data:
                    "type": "count"
                  }
                ],
-               "query": "samma-io.scanner: nmap*",
+               "query": "scanner: nmap*",
                "refId": "A",
                "timeField": "@timestamp"
              }
@@ -678,7 +678,7 @@ data:
                    "type": "cardinality"
                  }
                ],
-               "query": "samma-io.scanner: nmap*",
+               "query": "scanner: nmap*",
                "refId": "A",
                "timeField": "@timestamp"
              }
@@ -753,7 +753,7 @@ data:
                    "type": "count"
                  }
                ],
-               "query": "samma-io.scanner: nmap*",
+               "query": "scanner: nmap*",
                "refId": "A",
                "timeField": "@timestamp"
              }
@@ -831,7 +831,7 @@ data:
                    "type": "cardinality"
                  }
                ],
-               "query": "samma-io.scanner: base ",
+               "query": "scanner: base ",
                "refId": "A",
                "timeField": "@timestamp"
              }
