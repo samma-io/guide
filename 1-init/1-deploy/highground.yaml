@@ -1501,7 +1501,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: loadbalanser
+  name: samma
   namespace: samma-io
 spec:
   ports:
@@ -1521,7 +1521,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: loadbalanser-nodeport
+  name: samma
   namespace: samma-io
 spec:
   ports:
