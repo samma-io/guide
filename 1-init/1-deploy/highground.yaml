@@ -1528,15 +1528,15 @@ spec:
   - port: 5601
     name: kibana
     targetPort: 5601
-    NodePort: 30555
+    nodePort: 30555
   - port: 3000
     name: grafana
     targetPort: 3000
-    NodePort: 30556
+    nodePort: 30556
   - port: 8080
     name: api
     targetPort: 8080
-    NodePort: 30557
+    nodePort: 30557
   selector:
     sammastack: proxy
   type: NodePort
