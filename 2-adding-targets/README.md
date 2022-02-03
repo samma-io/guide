@@ -38,6 +38,12 @@ when all the targets are running we can deploy our scanner
 kubectl apply -f https://raw.githubusercontent.com/samma-io/targets/master/base/scanner.yaml
 ```
 
+We also have som external targets so lets add thoose as well
+
+
+```
+kubectl apply -f https://raw.githubusercontent.com/samma-io/targets/master/base/online.yaml
+```
 
 ### Lets check our scanners.
 The scanners will be set to scan the target at a high phase 1 every 5 min. So please check so that your computer can handle the load. If any problems run the delete command bellow.
