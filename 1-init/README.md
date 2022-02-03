@@ -6,7 +6,7 @@ We will also deploy the scanner and se so that our basic setup is done and worki
 
 
 ### Install minikube
-If you have not already done so install minkube and veridy your minikune is working.
+If you have not already done so install minkube and veridy your minikube is working.
 
 
 
@@ -64,34 +64,13 @@ Should look something like this
 ```
 matte@hrb:~/projects/samma/guide/1-init/1-deploy$ kubectl get pods -n samma-io
 NAME                              READY   STATUS    RESTARTS      AGE
-NAME                                  READY   STATUS    RESTARTS   AGE
-pod/elasticsearch-549fd86dfd-cskrz    1/1     Running   0          2m27s
-pod/grafana-654f5bc67d-d8c55          1/1     Running   0          2m26s
-pod/kibana-784b565464-6rtkg           1/1     Running   0          2m26s
-pod/samma-api-596d889f59-5vsh5        1/1     Running   0          16m
-pod/samma-operator-6696dc4bcf-dr8c5   1/1     Running   0          16m
+pod/elasticsearch-57c4b64bcd-j5wpc    1/1     Running   0          4m51s
+pod/grafana-7dd7cd6475-9wp6j          1/1     Running   0          4m51s
+pod/kibana-784b565464-7jx6w           1/1     Running   0          4m51s
+pod/proxy-69b4dd8f75-n2grv            3/3     Running   0          4m51s
+pod/samma-api-798f86f6d7-p8glj        1/1     Running   0          5m8s
+pod/samma-operator-687df768d8-77c79   1/1     Running   0          5m8s
 
-NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-service/api                NodePort    10.100.44.66     <none>        80:32153/TCP     16m
-service/elasticsearch      ClusterIP   10.108.51.252    <none>        9200/TCP         2m26s
-service/grafana            ClusterIP   10.101.156.196   <none>        3000/TCP         2m26s
-service/grafana-nodeport   NodePort    10.102.23.210    <none>        3000:30425/TCP   2m26s
-service/kibana             ClusterIP   10.104.219.48    <none>        5601/TCP         2m26s
-service/kibana-nodeport    NodePort    10.111.244.239   <none>        5601:30897/TCP   2m26s
-
-NAME                             READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/elasticsearch    1/1     1            1           2m27s
-deployment.apps/grafana          1/1     1            1           2m26s
-deployment.apps/kibana           1/1     1            1           2m26s
-deployment.apps/samma-api        1/1     1            1           16m
-deployment.apps/samma-operator   1/1     1            1           16m
-
-NAME                                        DESIRED   CURRENT   READY   AGE
-replicaset.apps/elasticsearch-549fd86dfd    1         1         1       2m27s
-replicaset.apps/grafana-654f5bc67d          1         1         1       2m26s
-replicaset.apps/kibana-784b565464           1         1         1       2m26s
-replicaset.apps/samma-api-596d889f59        1         1         1       16m
-replicaset.apps/samma-operator-6696dc4bcf   1         1         1       16m
 ```
 
 You should se our pods are in running state. If the Elasticsearch pod is not ready then wait some untill it is in running state
@@ -103,38 +82,35 @@ Lets list all the service
 ```
 matte@hrb:~/projects/samma/guide$ kubectl get svc -n samma-io
 NAME               TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-api                NodePort    10.100.44.66     <none>        80:32153/TCP     19m
-elasticsearch      ClusterIP   10.108.51.252    <none>        9200/TCP         5m22s
-grafana            ClusterIP   10.101.156.196   <none>        3000/TCP         5m22s
-grafana-nodeport   NodePort    10.102.23.210    <none>        3000:30425/TCP   5m22s
-kibana             ClusterIP   10.104.219.48    <none>        5601/TCP         5m22s
-kibana-nodeport    NodePort    10.111.244.239   <none>        5601:30897/TCP   5m22s
+api             ClusterIP      10.104.124.70    <none>        8080/TCP                                       6m2s
+elasticsearch   ClusterIP      10.99.79.149     <none>        9200/TCP                                       5m45s
+grafana         ClusterIP      10.101.133.53    <none>        3000/TCP                                       5m45s
+kibana          ClusterIP      10.98.232.148    <none>        5601/TCP                                       5m45s
+samma           NodePort       10.100.70.199    <none>        5601:31145/TCP,3000:31803/TCP,8080:32023/TCP   5m45s
+samma-lb        LoadBalancer   10.106.175.221   <pending>     5601:30895/TCP,3000:31486/TCP,8080:32482/TCP   5m45s
 ```
-The service of TYPE NodePort aee the one we can connect in minikube lets open on up
-
-When the pods are running we can get accees to the diffrent dashbourds lets start with grafana
 
 
+Open a connections to the samma service
 ```
- minikube service grafana-nodeport -n samma-io
+ minikube service samma -n samma-io
 ```
-This will open your browser and show the grafana. You can login with admin/admin and change the 
+This will open your browser and defult is the api 
 
-And to open the kibana dashbourd you type
+verify in the port by looking at 5601:31145/TCP,3000:31803/TCP,8080:32023/TCP where 
+
+5601:31145/TCP <--- kibana 
+3000:31803/TCP <---- grafana    Login with samma / samma-io 
+8080:32023/TCP <---api
 
 
 
-```
- minikube service kibana-nodeport -n samma-io
-```
+
+
 
 
 ## No persitant data
 So have in mind this minikube and test has no data that will be saved. If the pods ore elasticsearch is killed all data will be gone.
-
-
-## Adding the samma-io Dashbourd
-To make graf easy samma.io has some base dashbourd that can be added. Today you need to login into the tools and add json file to setup the dashbourds.
 
 
 ### Setup Grafana
@@ -143,7 +119,10 @@ Verify you can login and look at the samma dashbourd. Theer are now scanners run
 
 
 ```
-minikube service grafana-nodeport -n samma-io
+minikube service samma -n samma-io
+
+
+Then change the port to acceess grafana
 ```
 
 ## Check if the samma dashboard is loaded
@@ -158,7 +137,10 @@ Login with samma/samma-io
 Load the samma api by
 
 ```
-minikube service api -n samma-io
+minikube service samma -n samma-io
+
+
+Then change the port to acceess the api
 ```
 
 Verify you have access and can see the samma api page
@@ -170,7 +152,10 @@ Kibana we need to add the dashbouard manuall
 
 First open the gui
 ```
-minikube service kibana-nodeport -n samma-io
+minikube service samma -n samma-io
+
+
+Then change the port to acceess kibana
 ```
 
 Then we can install our json that will setup the kibana dashbourds. They will make a error for we have not setup the index pattern but that will be resolved later when we start the scanner and they will send data to elastic
