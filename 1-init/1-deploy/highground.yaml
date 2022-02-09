@@ -122,1416 +122,1337 @@ metadata:
   namespace: samma-io
 data:
   samma.json: |-
-    {
-      "__inputs": [
-        {
-          "name": "DS_SAMMA-ELASTICSEARCH",
-          "label": "Samma-Elasticsearch",
-          "description": "",
-          "type": "datasource",
-          "pluginId": "elasticsearch",
-          "pluginName": "Elasticsearch"
-        }
-      ],
-      "__elements": [],
-      "__requires": [
-        {
-          "type": "datasource",
-          "id": "elasticsearch",
-          "name": "Elasticsearch",
-          "version": "1.0.0"
-        },
-        {
-          "type": "panel",
-          "id": "gauge",
-          "name": "Gauge",
-          "version": ""
-        },
-        {
-          "type": "grafana",
-          "id": "grafana",
-          "name": "Grafana",
-          "version": "8.4.0-beta1"
-        },
-        {
-          "type": "panel",
-          "id": "piechart",
-          "name": "Pie chart",
-          "version": ""
-        },
-        {
-          "type": "panel",
-          "id": "stat",
-          "name": "Stat",
-          "version": ""
-        },
-        {
-          "type": "panel",
-          "id": "table",
-          "name": "Table",
-          "version": ""
-        },
-        {
-          "type": "panel",
-          "id": "timeseries",
-          "name": "Time series",
-          "version": ""
-        }
-      ],
-      "annotations": {
-        "list": [
-          {
-            "builtIn": 1,
-            "datasource": "-- Grafana --",
-            "enable": true,
-            "hide": true,
-            "iconColor": "rgba(0, 211, 255, 1)",
-            "name": "Annotations & Alerts",
-            "target": {
-              "limit": 100,
-              "matchAny": false,
-              "tags": [],
+      {
+        "annotations": {
+          "list": [
+            {
+              "builtIn": 1,
+              "datasource": "-- Grafana --",
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "target": {
+                "limit": 100,
+                "matchAny": false,
+                "tags": [],
+                "type": "dashboard"
+              },
               "type": "dashboard"
+            }
+          ]
+        },
+        "description": "Samma.io scanners ",
+        "editable": true,
+        "fiscalYearStartMonth": 0,
+        "gnetId": 15572,
+        "graphTooltip": 0,
+        "id": 2,
+        "links": [],
+        "liveNow": false,
+        "panels": [
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
             },
-            "type": "dashboard"
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 0
+            },
+            "id": 4,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "targets": [
+              {
+                "alias": "Nikto",
+                "bucketAggs": [
+                  {
+                    "field": "@timestamp",
+                    "id": "2",
+                    "settings": {
+                      "interval": "auto"
+                    },
+                    "type": "date_histogram"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "samma-io.scanner: nikto",
+                "refId": "A",
+                "timeField": "@timestamp"
+              },
+              {
+                "alias": "Tsunami",
+                "bucketAggs": [
+                  {
+                    "field": "@timestamp",
+                    "id": "2",
+                    "settings": {
+                      "interval": "auto"
+                    },
+                    "type": "date_histogram"
+                  }
+                ],
+                "hide": false,
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "samma-io.scanner: tsunami",
+                "refId": "B",
+                "timeField": "@timestamp"
+              },
+              {
+                "alias": "Nmap",
+                "bucketAggs": [
+                  {
+                    "field": "@timestamp",
+                    "id": "2",
+                    "settings": {
+                      "interval": "auto"
+                    },
+                    "type": "date_histogram"
+                  }
+                ],
+                "hide": false,
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "samma-io.scanner: nmap*",
+                "refId": "C",
+                "timeField": "@timestamp"
+              },
+              {
+                "alias": "Base",
+                "bucketAggs": [
+                  {
+                    "field": "@timestamp",
+                    "id": "2",
+                    "settings": {
+                      "interval": "auto"
+                    },
+                    "type": "date_histogram"
+                  }
+                ],
+                "hide": false,
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "samma-io.scanner: base",
+                "refId": "D",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Scanners Running",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "auto"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 8
+            },
+            "id": 29,
+            "options": {
+              "footer": {
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true
+            },
+            "pluginVersion": "8.3.5",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "networkEndpoint.ipAddress.address",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "field": "networkEndpoint.ipAddress.address",
+                    "id": "1",
+                    "type": "cardinality"
+                  }
+                ],
+                "query": "samma-io.scanner: tsunami ",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Tsunami IP Address",
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 8
+            },
+            "id": 27,
+            "options": {
+              "displayLabels": [
+                "value"
+              ],
+              "legend": {
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "pieType": "pie",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^networkEndpoint\\.port.portNumber$/",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "networkEndpoint.port.portNumber",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "samma-io.scanner: tsunami AND networkEndpoint.port.portNumber:*",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Tsunami Ports Find",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 16
+            },
+            "id": 25,
+            "options": {
+              "legend": {
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "pieType": "pie",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "software.name",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "field": "software.name",
+                    "id": "1",
+                    "type": "cardinality"
+                  }
+                ],
+                "query": "samma-io.scanner: tsunami",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Tsunami Software Found",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 16
+            },
+            "id": 21,
+            "options": {
+              "displayLabels": [
+                "value"
+              ],
+              "legend": {
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "pieType": "pie",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^Count$/",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "protocol",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "datasource": {
+                  "type": "elasticsearch",
+                  "uid": "P662685A2445DB4FC"
+                },
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "scanner: nmap*",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Nmap Protocol",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 24
+            },
+            "id": 23,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {},
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.3.5",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "type",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "datasource": {
+                  "type": "elasticsearch",
+                  "uid": "P662685A2445DB4FC"
+                },
+                "metrics": [
+                  {
+                    "field": "target",
+                    "id": "1",
+                    "type": "cardinality"
+                  }
+                ],
+                "query": "scanner: nmap*",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Nmap Targets",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 24
+            },
+            "id": 20,
+            "options": {
+              "displayLabels": [
+                "value"
+              ],
+              "legend": {
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "pieType": "pie",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^port$/",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "port",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "datasource": {
+                  "type": "elasticsearch",
+                  "uid": "P662685A2445DB4FC"
+                },
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "scanner: nmap*",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Nmap Ports Find",
+            "type": "piechart"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 32
+            },
+            "id": 18,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {},
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.3.5",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "samma-io.scanner",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "field": "IP",
+                    "id": "1",
+                    "type": "cardinality"
+                  }
+                ],
+                "query": "samma-io.scanner: base ",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Recon IP Total",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "auto"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 32
+            },
+            "id": 15,
+            "options": {
+              "footer": {
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true
+            },
+            "pluginVersion": "8.3.5",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "HostName",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "Type : \" A\"",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "A Records",
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "auto"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 40
+            },
+            "id": 14,
+            "options": {
+              "footer": {
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true
+            },
+            "pluginVersion": "8.3.5",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "HostName",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "Type : \" NS\"",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Nameservers",
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "auto"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 40
+            },
+            "id": 16,
+            "options": {
+              "footer": {
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true
+            },
+            "pluginVersion": "8.3.5",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "HostName",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "Type : \" PTR\"",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "PTR Records",
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "auto"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 48
+            },
+            "id": 6,
+            "options": {
+              "footer": {
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true
+            },
+            "pluginVersion": "8.3.5",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "finding",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "0"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "type: Nikto",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Nikto Findings",
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 48
+            },
+            "id": 10,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true,
+              "text": {}
+            },
+            "pluginVersion": "8.3.5",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "target",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "field": "finding",
+                    "id": "1",
+                    "type": "cardinality"
+                  }
+                ],
+                "query": "_exists_:finding",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Nikto Findings / Target",
+            "type": "gauge"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 56
+            },
+            "id": 8,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true,
+              "text": {}
+            },
+            "pluginVersion": "8.3.5",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "target",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "field": "target",
+                    "id": "1",
+                    "type": "cardinality"
+                  }
+                ],
+                "query": "type: Nikto",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Nikto Targets",
+            "type": "gauge"
+          },
+          {
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P662685A2445DB4FC"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                },
+                "mappings": []
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 56
+            },
+            "id": 2,
+            "options": {
+              "displayLabels": [],
+              "legend": {
+                "displayMode": "list",
+                "placement": "bottom",
+                "values": []
+              },
+              "pieType": "pie",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/.*/",
+                "values": true
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "pluginVersion": "8.2.1",
+            "targets": [
+              {
+                "alias": "",
+                "bucketAggs": [
+                  {
+                    "field": "OSVDB",
+                    "id": "2",
+                    "settings": {
+                      "min_doc_count": "1",
+                      "order": "desc",
+                      "orderBy": "_term",
+                      "size": "10"
+                    },
+                    "type": "terms"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "id": "1",
+                    "type": "count"
+                  }
+                ],
+                "query": "type: Nikto",
+                "refId": "A",
+                "timeField": "@timestamp"
+              }
+            ],
+            "title": "Nikto OSVDB",
+            "type": "piechart"
           }
-        ]
-      },
-      "editable": true,
-      "fiscalYearStartMonth": 0,
-      "graphTooltip": 0,
-      "id": null,
-      "links": [],
-      "liveNow": false,
-      "panels": [
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 24,
-            "x": 0,
-            "y": 0
-          },
-          "id": 4,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Nikto",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto"
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "${DS_SAMMA-ELASTICSEARCH}"
-              },
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "samma-io.scanner: nikto ORE scanner: nikto",
-              "refId": "A",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "Tsunami",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto"
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "${DS_SAMMA-ELASTICSEARCH}"
-              },
-              "hide": false,
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "samma-io.scanner: tsunami ORE scanner: tsunami",
-              "refId": "B",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "Nmap",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto"
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "${DS_SAMMA-ELASTICSEARCH}"
-              },
-              "hide": false,
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "scanner: nmap*",
-              "refId": "C",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "Base",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto"
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "${DS_SAMMA-ELASTICSEARCH}"
-              },
-              "hide": false,
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "scanner: base ORE samma-io.scanner: base",
-              "refId": "D",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Scanners Running",
-          "type": "timeseries"
+        ],
+        "schemaVersion": 34,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": []
         },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 8
-          },
-          "id": 29,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "8.4.0-beta1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "networkEndpoint.ipAddress.address",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "${DS_SAMMA-ELASTICSEARCH}"
-              },
-              "metrics": [
-                {
-                  "field": "networkEndpoint.ipAddress.address",
-                  "id": "1",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "samma-io.scanner: tsunami ORE scanner: tsunami",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Tsunami IP Address",
-          "type": "table"
+        "time": {
+          "from": "now-24h",
+          "to": "now"
         },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": []
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 8
-          },
-          "id": 27,
-          "options": {
-            "displayLabels": [
-              "value"
-            ],
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "/^networkEndpoint\\.port.portNumber$/",
-              "values": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "networkEndpoint.port.portNumber",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "${DS_SAMMA-ELASTICSEARCH}"
-              },
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "samma-io.scanner: tsunami AND networkEndpoint.port.portNumber:*",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Tsunami Ports Find",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": []
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 16
-          },
-          "id": 25,
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "software.name",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "${DS_SAMMA-ELASTICSEARCH}"
-              },
-              "metrics": [
-                {
-                  "field": "software.name",
-                  "id": "1",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "samma-io.scanner: tsunami ORE scanner: tsunami",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Tsunami Software Found",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": []
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 16
-          },
-          "id": 21,
-          "options": {
-            "displayLabels": [
-              "value"
-            ],
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "/^Count$/",
-              "values": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "protocol",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "scanner: nmap*",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Nmap Protocol",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 24
-          },
-          "id": 23,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "auto"
-          },
-          "pluginVersion": "8.4.0-beta1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "type",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "field": "target",
-                  "id": "1",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "scanner: nmap*",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Nmap Targets",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": []
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 24
-          },
-          "id": 20,
-          "options": {
-            "displayLabels": [
-              "value"
-            ],
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "/^port$/",
-              "values": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "port",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "scanner: nmap*",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Nmap Ports Find",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 32
-          },
-          "id": 18,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "auto"
-          },
-          "pluginVersion": "8.4.0-beta1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "samma-io.scanner",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "${DS_SAMMA-ELASTICSEARCH}"
-              },
-              "metrics": [
-                {
-                  "field": "IP",
-                  "id": "1",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "samma-io.scanner: base ",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Recon IP Total",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 32
-          },
-          "id": 15,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "8.4.0-beta1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "HostName",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "Type : \" A\"",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "A Records",
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 40
-          },
-          "id": 14,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "8.4.0-beta1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "HostName",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "Type : \" NS\"",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Nameservers",
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 40
-          },
-          "id": 16,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "8.4.0-beta1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "HostName",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "Type : \" PTR\"",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "PTR Records",
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 48
-          },
-          "id": 6,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "8.4.0-beta1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "finding",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "0"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "type: Nikto",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Nikto Findings",
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 48
-          },
-          "id": 10,
-          "options": {
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "text": {}
-          },
-          "pluginVersion": "8.4.0-beta1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "target",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "field": "finding",
-                  "id": "1",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "_exists_:finding",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Nikto Findings / Target",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 56
-          },
-          "id": 8,
-          "options": {
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "text": {}
-          },
-          "pluginVersion": "8.4.0-beta1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "target",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "field": "target",
-                  "id": "1",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "type: Nikto",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Nikto Targets",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "${DS_SAMMA-ELASTICSEARCH}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": []
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 12,
-            "y": 56
-          },
-          "id": 2,
-          "options": {
-            "displayLabels": [],
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "values": []
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "/.*/",
-              "values": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "8.2.1",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "OSVDB",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "type: Nikto",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Nikto OSVDB",
-          "type": "piechart"
-        }
-      ],
-      "schemaVersion": 35,
-      "style": "dark",
-      "tags": [],
-      "templating": {
-        "list": []
-      },
-      "time": {
-        "from": "now-24h",
-        "to": "now"
-      },
-      "timepicker": {},
-      "timezone": "",
-      "title": "Samma.io",
-      "uid": "389K2rv7z",
-      "version": 1,
-      "weekStart": ""
-    }
+        "timepicker": {},
+        "timezone": "",
+        "title": "Samma.io",
+        "uid": "389K2rv72",
+        "version": 2,
+        "weekStart": ""
+      }
 ---
 apiVersion: v1
 kind: ConfigMap
