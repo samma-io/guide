@@ -20,7 +20,7 @@ This will open tree taps fins the Grafana tab and login
 
 Open the samma dashbourd in grafana
 
-![Grafana first!](/assets/grafana1.png)
+![Grafana first!](assets/grafana1.png)
 
 ### Scanner scanners are based on time
 
@@ -31,7 +31,7 @@ This means if you scan a target yesterday and then are looking at the result tod
 
 
 Here is how you select hos to show the correct time frame.
-![Grafana times!](/assets/grafana2.png)
+![Grafana times!](assets/grafana2.png)
 
 
 
@@ -42,20 +42,20 @@ To make a new dashbourd let find some values that we like. Go to the *explore* p
 
 First lets find all tsunami scanners
 
-![Grafana find!](/assets/grafana3.png)
+![Grafana find!](assets/grafana3.png)
 
 
 
 Know when we have the right scanners lets find all the ports the scanner did find.
 
-![Grafana find!](/assets/grafana4.png)
+![Grafana find!](assets/grafana4.png)
 
 
 
 We also have the port scanner nmap. So lets add all the ports that our nmap scanner did find.
 
 
-![Grafana both!](/assets/grafana5.png)
+![Grafana both!](assets/grafana5.png)
 
 
 Lets add this grafe to our samma.io dashbourd
