@@ -1,29 +1,41 @@
 # Monitor the Delta
-When the samma scanner spibk up new targets and start scanning them we se the new result added here. Numer of targets will go up and
-if any new findings is found they will whow up as well.
-In grafana we can easyly se when the new scanners have started and when new targets are added.
+When we are running the our Samma scanner regular. 
+We can setup alerts in grafana to monitor if something chnages. To do so we first run a scan to get our baseline. 
+When we have our baseline we can set alerts if this changes.
 
-You will also easy see the new findings.
+In this example we have a simple baseline where we get alerted if new ports will bo open.
+We set an alert to alert us if more than 3 open ports of the same port are open.
 
-
-
-
-## Delta
-Login into the grafana dashbourd and look at the following and write down the result
+You can filter out ports ore calculate the sum in different ways to alert on more changes.
 
 
-- What happend to number of open ports
-- Are there more targets now
-- Any new targets that has problems ?
-- Did the alert on post open timeline trigger ?
+## Alert on changes in the Delta
 
 
-## Search 
-Open the kibana dasbourdn and search for the following
+### Tha graf
+The first thing we need is a dashboard that tracks trends. In Grafana create a new dashboard (DONT USE THE ONE THAT WAS INSTALLED ITS READ ONLY)
+And also create a new folder
 
 
-Search for "apache" and write donw how many documnets come up.
-Search for "3306" and write down how many documnets come up
+![gui !](assets/grafana0.png)
+
+
+Then create the same typ of graf we did before to find open ports
+
+
+
+
+![gui !](assets/grafana1.png)
+
+Add a Alert 
+
+![gui !](assets/grafana2.png)
+
+### Set what to happens
+Here we set the levels and what to happends. You can easy search and set diffrent levels of alert to get as close as possible to you baseline.
+
+![gui !](assets/grafana3.png)
+
 
 
 
