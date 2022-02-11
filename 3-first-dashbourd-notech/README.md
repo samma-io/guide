@@ -60,19 +60,19 @@ We also have the port scanner nmap. So lets add all the ports that our nmap scan
 
 Lets add this grafe to our samma.io dashbourd
 
-- Open the dasbourd
+- Open the dashboard
 - Klick new "Add panel" (righ corner)
 - Select "Add new panel"
-- Verify the datasource is "Samma-elasticsearch"
-- Fill in tha same values as before
+- Verify the data source is "Samma-elasticsearch"
+- Fill in the same values as before
 - Save
 
-And know we have success search for new values in the scan result, And built a new graf.
+And know we have success search for new values in the scan result and built a new graf.
 
 
 
-To find more points of intrest open the explorer tap and select diffrent fiels. 
-(Grafana show all field in elastic and when we choose the scanner typ example tsunami. Then there isn only the fields from the tsunami scanner that will give any result.)
+To find more points of interest open the explorer tap and select different fields. 
+(Grafana show all field in elastic and when we choose the scanner type example tsunami. Then there is only the fields from the tsunami scanner that will give any result.)
 
 
 
@@ -80,14 +80,30 @@ To find more points of intrest open the explorer tap and select diffrent fiels.
 
 
 ## Kibana
-Open the kibaan page. 
-On of the targets in grafana hade a high port open 33774 lets find out what service was using the high port.
+Kibana is used to search in the scanner result. You can search for Apache and find all result that where found with the Apacha webserver.
+Before we can start using Kibana we need to setup a index pattern and mappings. This will help kibana when we search for values.
+Itś good to to this after some scans have run so we always have a updated index pattern. If we add any new scanner that new scanner will add more fields and then we need to update the index mapping again.
 
 
-Go to the discover page and search for 33774 look over the result untill you find the target that the port bellong to
-Write done that target. 
+
+### Lets setup kibana
+- Go to stack manegment
+- Kibana Index Pattern
+- Create new 
+- samma-io.* will find the samma.io index 
+- Set time to @timestamp
+- Go to Kibana discover and look at the result (check time)
 
 
+
+
+
+![Kibana!](assets/kibana1.png)
+![Kibana!](assets/kibana2.png)
+![Kibana!](assets/kibana3.png)
+![Kibana!](assets/kibana4.png)
+![Kibana!](assets/kibana5.png)
+![Kibana!](assets/kibana6.png)
 
 
 
