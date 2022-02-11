@@ -7,6 +7,13 @@ Resolving problems in local dev is quick and easy.
 
 
 
+## Req
+To run any of the Samma scanners you need to have docker installed or a server that has docker installed.
+
+
+
+
+
 ## All Scanner are local first
 
 
