@@ -107,3 +107,52 @@ Itś good to to this after some scans have run so we always have a updated index
 
 
 
+### Lets find and sort findings
+
+We can do fulltext search of text lets search for "Apache" to find all Apache servers running. Here we also cand fint the Apache version. We can also search for SSH to find all SSH server.
+
+
+
+
+![Kibana!](assets/kibana7.png)
+
+
+![Kibana!](assets/kibana8.png)
+
+
+### Lets connect kibana finding to a Grafna graf
+We can search for values in Kibana and then setip grafs in grafana to monitor the changes and findings.
+
+First we need to soirt out the value we are intresting in. Then find the values we want to graf iun kibana. After that we can open grafana and query for that value and setup a dashbourd.
+
+Here we are to filter out on tsunami scanner and find all the hostnames it finds.
+Then make a grafs in grafana showing tha hostnames we are scanning.
+
+We start by sorting the on tsunami scanner. Then in the result we show only to display the field we are intresting in.
+And now we have some finding we can make a graf off.
+
+
+![Kibana!](assets/kibana9.png)
+![Kibana!](assets/kibana10.png)
+![Kibana!](assets/kibana11.png)
+![Kibana!](assets/kibana12.png)
+![Kibana!](assets/kibana13.png)
+
+
+
+So lets move to grafana and find the result we hade in kibana and then query for it. And then make a graf.
+
+
+![Grafana find!](assets/grafana6.png)
+![Grafana find!](assets/grafana7.png)
+![Grafana find!](assets/grafana8.png)
+
+
+And you have now.
+
+- Search in the scanner row data 
+- Find a value that we want to monitor
+- Setup a dashbourd in grafana that tracks this value
+
+
+Lets move on to adding more targets and see the values change.
