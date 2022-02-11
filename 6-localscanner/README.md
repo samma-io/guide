@@ -1,27 +1,41 @@
 # Localscanner
 
-With samma you can also run a simple scanner againt any host with a simple docker command.
-this is use to verify that a targets could be fixed, Ore to test you applications when you are working with it.
+One if the key fetures of the scanners use in samma is that they should be easy to run for developers and tester.
+So when a scanner has found any issues, The issues can be fixed, And a scanner can then be run to verify the fix.
 
-To test start by running this command 
-
-
-```
-docker run sammascanner/tsuname TARGET=test.samma.io
-```
+Resolving problems in local dev is quick and easy.
 
 
-In the github pages for every scanner you can fins docker commands for them all. Example are also
 
-```
-docker run sammascanner/nmap TARGET=test.samma.io
+## All Scanner are local first
 
-```
+
+all of the scanners can be launched with a simple docker command here are some to test
+
+
 
 
 ```
-docker run sammascanner/nikto TARGET=test.samma.io
+docker run -e TARGET=test.samma.io sammascanner/tsunami 
 ```
+
+
+```
+docker run -e TARGET=test.samma.io sammascanner/nmap 
+
+```
+
+
+```
+docker run -e TARGET=test.samma.io sammascanner/nikto 
+```
+
+```
+docker run -e TARGET=samma.io sammascanner/base 
+```
+
+
+The scanner can generate a lot of data into stout. A simple grep can be added to find relevant values.
 
 
 
