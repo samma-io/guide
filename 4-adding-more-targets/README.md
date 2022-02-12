@@ -4,6 +4,16 @@ With Samma we can add targets in many different ways. All targets are saved in t
 So it does not matter how you add any targets to Samma.
 
 
+## Add Service in the cluster
+Lets add some target in the cluster so we have something to scan against.
+
+```
+kubect  apply -f https://raw.githubusercontent.com/samma-io/targets/master/base/apache.yaml
+https://raw.githubusercontent.com/samma-io/targets/master/base/nginx.yaml
+```
+
+
+
 
 ## GUI
 There is a simple gui that talks to the Samma API. To access run the following command in minikube
@@ -19,7 +29,7 @@ From the gui you can add and delete targets
 
 ### New target
 
-- Try to add a new target to the cluster to set the *Target* to "samma.io" and press add.
+- Try to add a new target to the cluster to set the *Target* to "test2.samma.io" and press add.
 Verify the new target is shown in the list
 
 - Add a new target that uses a other scanner set the *Target* to "ollebo.com" and *Samma_io_scanners* to base
@@ -33,20 +43,17 @@ It is easy to apply new target using a standard yaml file ass well. It's what th
 Apply the following yaml to start a new scanner
 
 ```
-apiVersion: samma.io/v1  
+apiVersion: samma.io/v1
 kind: Scanner
-metadata: 
-  name: samma-nmap-manual     
+metadata:
+  name: demo-job-apache-2-4-47
   namespace: samma-io
-spec: 
- target: test.samma.io
- samma_io_id: "12345"
- samma_io_tags: 
-      - scanner
-      - prod
- write_to_file: "true"
- elasticsearch: elasticsearch
- scanners: ['nmap']
+spec:
+ target: apache-2-4-47.apache.svc.cluster.local
+ samma_io_id: "11111"
+ samma_io_tags:
+      - apache
+      - demo
 ```
 
 
@@ -66,6 +73,21 @@ spec:
  elasticsearch: elasticsearch
  scanners: ['nikto']
 
+```
+
+
+```
+apiVersion: samma.io/v1
+kind: Scanner
+metadata:
+  name: demo-job-nginx-1-9-5
+  namespace: samma-io
+spec:
+ target: nginx-1-9-5.nginx.svc.cluster.local
+ samma_io_id: "11111"
+ samma_io_tags:
+      - nginx
+      - demo
 ```
 
 

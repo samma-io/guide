@@ -31,8 +31,8 @@ Add a Alert
 
 ![gui !](assets/grafana2.png)
 
-### Set what to happens
-Here we set the levels and what to happends. You can easy search and set diffrent levels of alert to get as close as possible to you baseline.
+### Set what alerts 
+Here we set the levels and what to happen. You can easily search and set different levels of alert to get as close as possible to your baseline.
 
 ![gui !](assets/grafana3.png)
 
