@@ -12,29 +12,42 @@ You can filter out ports ore calculate the sum in different ways to alert on mor
 ## Alert on changes in the Delta
 
 
-### Tha graf
-The first thing we need is a dashboard that tracks trends. In Grafana create a new dashboard (DONT USE THE ONE THAT WAS INSTALLED ITS READ ONLY)
-And also create a new folder
+### The graf
+The first thing we need is a dashboard that tracks trends. In Grafana create a new dashboard 
 
 
-![gui !](assets/grafana0.png)
+Lets install one of Sammas pre alerts dashbourds
+
+![gui !](assets/grafana4.png)
+![gui !](assets/grafana5.png)
+![gui !](assets/grafana6.png)
+![gui !](assets/grafana7.png)
 
 
-Then create the same typ of graf we did before to find open ports
 
 
-
-
-![gui !](assets/grafana1.png)
 
 Add a Alert 
 
-![gui !](assets/grafana2.png)
+First create a folder that we can add the alert to
+![gui !](assets/grafana8.png)
+
+
+
+
+
 
 ### Set what alerts 
 Here we set the levels and what to happen. You can easily search and set different levels of alert to get as close as possible to your baseline.
 
-![gui !](assets/grafana3.png)
+Go back to the graf in the dashbourd. and click edit.
+Now open the tap for alerts and set diffrent values when you want the alert to trigger.
+
+
+
+![gui !](assets/grafana10.png)
+![gui !](assets/grafana9.png)
+
 
 
 
