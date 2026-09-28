@@ -42,3 +42,14 @@ In there are all the steps and also the yamls you need.
 
 
 
+
+
+## AWS SIEM
+
+Chapters 8 and 9 cover the Samma AWS SIEM, an open-source SIEM that runs in your own AWS account
+([`samma-io/aws-siem`](https://github.com/samma-io/aws-siem)).
+
+- [8. How the data flows](8-aws-siem-data-flow/README.md): ingest (the ingester, and S3 → SQS → Vector), detection, alerts to Slack and GitHub, and search in Quickwit, Athena and Grafana.
+- [9. Deploy your own AWS SIEM](9-aws-siem-deploy/README.md): from a clean AWS account to processing logs, including the SSM secrets for alerting and for every ingest source.
+
+For these chapters you need an AWS account, Terraform, Docker and the AWS CLI.
