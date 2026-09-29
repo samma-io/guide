@@ -49,6 +49,6 @@ The first thing we need to do, Is install the base system and have a k8s cluster
 
 - Download and run our install file
 ```
-wget https://raw.githubusercontent.com/samma-io/guide/main/scanboxes/ubuntu/setup_k8s_master.sh
+wget https://raw.githubusercontent.com/samma-io/guide/main/legacy/scanboxes/ubuntu/setup_k8s_master.sh
 ```
 

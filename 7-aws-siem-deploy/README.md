@@ -1,7 +1,7 @@
-# 9. Deploy your own AWS SIEM
+# 7. Deploy your own AWS SIEM
 
 This chapter takes you from an empty AWS account to a running Samma AWS SIEM that processes your
-logs. Read [chapter 8](../8-aws-siem-data-flow/README.md) first if you want to understand what you
+logs. Read [chapter 6](../6-aws-siem-data-flow/README.md) first if you want to understand what you
 are deploying.
 
 ## What you will have at the end
@@ -441,7 +441,7 @@ aws s3 ls s3://siem-slack-<acct>-<region>/slack/ --recursive | tail
 ## Step 7. Send your AWS and GitHub logs
 
 `terraform output log_source_buckets` lists one landing bucket per AWS log type. Each bucket is
-already wired to its SQS queue and to Vector (chapter 8, section 1a). You only have to point the
+already wired to its SQS queue and to Vector (chapter 6, section 1a). You only have to point the
 producers at the buckets.
 
 | Log | Quickest way |

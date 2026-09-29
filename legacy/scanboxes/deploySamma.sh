@@ -11,4 +11,4 @@ kubectl apply -f https://raw.githubusercontent.com/samma-io/operator/main/manife
 
 
 echo "Deploy the highground"
-kubectl apply -f https://raw.githubusercontent.com/samma-io/guide/main/1-init/1-deploy/highground.yaml
+kubectl apply -f https://raw.githubusercontent.com/samma-io/guide/main/legacy/1-init/1-deploy/highground.yaml

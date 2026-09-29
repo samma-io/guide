@@ -1,10 +1,13 @@
-# 8. AWS SIEM: how the data flows
+# 6. AWS SIEM: how the data flows
 
 This chapter follows one log record through the Samma AWS SIEM. It starts where the record is
 created, in AWS, GitHub or a SaaS tool. It ends when the record is searchable in Grafana and
 Quickwit, or, if a rule matches, when it has become an alert in Slack and GitHub.
 
-Chapter 9 shows how to deploy all of this into your own AWS account.
+[Chapter 7](../7-aws-siem-deploy/README.md) shows how to deploy all of this into your own AWS account.
+
+> The AWS SIEM and the scanner (chapters 1–5) are separate systems today: scanner findings go to
+> TimescaleDB and the Samma dashboard, not into the SIEM.
 
 ## What you will learn
 
@@ -222,7 +225,7 @@ drains it every minute.
 
 **Credentials.**
 - Slack, 1Password and Cloudflare tokens are read from **SSM Parameter Store** at
-  `/<p>/ingester/<lane>/<NAME>`. Chapter 9 shows how to set them.
+  `/<p>/ingester/<lane>/<NAME>`. Chapter 7 shows how to set them.
 - Google Workspace and GCP use **no stored secret**. The Lambda's AWS role federates into Google
   through Workload Identity Federation.
 
@@ -409,7 +412,7 @@ filtered lane queue also has an alarm on the age of its oldest message.
 
 ## Next
 
-Continue to **[9. Deploy your own AWS SIEM](../9-aws-siem-deploy/README.md)**.
+Continue to **[7. Deploy your own AWS SIEM](../7-aws-siem-deploy/README.md)**.
 
 More detail for each AWS log producer is in
 [`aws-siem/docs/aws-log-sources.md`](https://github.com/samma-io/aws-siem/blob/main/docs/aws-log-sources.md).
