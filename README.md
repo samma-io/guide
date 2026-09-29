@@ -1,55 +1,50 @@
-# Guide to get started with Samma Scanner
+# Samma guide
 
+A hands-on guide to the two parts of Samma:
 
-## What is this
-This is a guide to walk you trow the basic steps on leanring the samma scanner.
-The guide also come with task and actions to performe to get a basic understading.
+- **Samma scanner:** find out what the outside world can see of your hosts (open ports, TLS
+  certificates, security headers, DNS and more), track it over time, and spot what changed.
+- **Samma AWS SIEM:** collect logs from your AWS accounts, GitHub and SaaS tools, run Sigma
+  detections on them, send alerts to Slack and GitHub, and search everything in Grafana.
 
-### After the guide you will be able to 
+Each chapter is a folder with a `README.md`. Work through them in order, or jump to the part you need.
 
-- Setup scans against targets
-- Find result of targets and setup baselines
-- Search and to advanced searches of findings
-- Create dashboards
+## The steps
 
-## Who is this fore ?
+| # | Chapter | You will | You need |
+|---|---|---|---|
+| 1 | [What is Samma?](1-overview/README.md) | understand both parts and how they fit together | a browser |
+| **Scanner** | | | |
+| 2 | [Run a scanner locally](2-run-a-scanner-locally/README.md) | run scanners with Docker, read findings, watch them travel over NATS | Docker |
+| 3 | [Deploy the scanner](3-deploy-the-scanner/README.md) | install the operator stack and the Samma dashboard | a Kubernetes cluster, `kubectl`, `helm` |
+| 4 | [Your first scan](4-first-scan/README.md) | add a target via the dashboard, an API token or the operator API, and read the results | chapter 3 |
+| 5 | [Targets, profiles and baselines](5-targets-profiles-baselines/README.md) | choose scanners, scan Ingresses and git-managed targets, and find what changed | chapter 3 |
+| **AWS SIEM** | | | |
+| 6 | [AWS SIEM: how the data flows](6-aws-siem-data-flow/README.md) | follow a log from ingest through detection to alerts and search | a browser |
+| 7 | [Deploy your own AWS SIEM](7-aws-siem-deploy/README.md) | deploy into a clean AWS account and set up SSM for alerting and every source | AWS account, Terraform, Docker |
 
-This is for tech user that have some basic undertdading of docker and kubernetes. But also for non techical user that can use the setup vm and want to test our the scanner.
+Only interested in one part? The scanner is chapters 1–5. The SIEM is chapters 1, 6 and 7.
 
+## Who is this for?
 
-## What you need
+- **Chapters 1, 4 (dashboard part) and 6** need no tooling. They explain what happens and where to
+  look.
+- **Chapters 2, 3, 5 and 7** assume you are comfortable with a terminal, Docker, and either
+  Kubernetes (scanner) or AWS and Terraform (SIEM).
 
-### Tech user
-You will need some more core tools to get started like
+## Before you start
 
-- Minikube
-- Kubctl
-- Helm
-- Docker
+Only scan hosts you own or have written permission to test. The examples use `scanme.nmap.org` and
+`example.com`.
 
+## The code
 
-### No tech
-A webbrowser is all you need
+| Part | Repositories |
+|---|---|
+| Scanner | [app](https://github.com/samma-io/app), [operator](https://github.com/samma-io/operator), [detect](https://github.com/samma-io/detect), [deploy](https://github.com/samma-io/deploy) |
+| AWS SIEM | [aws-siem](https://github.com/samma-io/aws-siem), [vector](https://github.com/samma-io/vector), [ingester](https://github.com/samma-io/ingester), [detection-engine](https://github.com/samma-io/detection-engine), [alert-destination](https://github.com/samma-io/alert-destination), [quickwit](https://github.com/samma-io/quickwit), [grafana](https://github.com/samma-io/grafana) |
 
+## Legacy guide
 
-
-
-## How does it work ?
-Navigates to the folder id order start with capter 1.
-In there are all the steps and also the yamls you need.
-
-## Good luck
-
-
-
-
-
-## AWS SIEM
-
-Chapters 8 and 9 cover the Samma AWS SIEM, an open-source SIEM that runs in your own AWS account
-([`samma-io/aws-siem`](https://github.com/samma-io/aws-siem)).
-
-- [8. How the data flows](8-aws-siem-data-flow/README.md): ingest (the ingester, and S3 → SQS → Vector), detection, alerts to Slack and GitHub, and search in Quickwit, Athena and Grafana.
-- [9. Deploy your own AWS SIEM](9-aws-siem-deploy/README.md): from a clean AWS account to processing logs, including the SSM secrets for alerting and for every ingest source.
-
-For these chapters you need an AWS account, Terraform, Docker and the AWS CLI.
+The original chapters, for the first-generation Samma on Elasticsearch and Kibana, are kept in
+[`legacy/`](legacy/README.md). They are no longer maintained.
