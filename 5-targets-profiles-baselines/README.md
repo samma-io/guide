@@ -62,26 +62,59 @@ Because they are ordinary resources, you can keep them **in git** and let ArgoCD
 them. That gives you a reviewed, versioned list of what you scan. This replaces the old "pipeline
 scanner" idea from the legacy guide.
 
-## Scan your own Ingresses automatically
+## Scanning driven by your Ingress
 
-The operator watches Ingresses. Annotate one and every host in its rules gets scanned:
+The operator watches Ingresses. Annotate one and every host in its rules gets scanned. Your Ingress
+manifests are already in git, so your scanning setup is versioned and reviewed with them.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: shop
+  name: checkout
   annotations:
     samma-io.alpha.kubernetes.io/enable: "true"
-    samma-io.alpha.kubernetes.io/profile: "detect"       # or: scanners: "tls-scanner,http-headers-scanner"
+    samma-io.alpha.kubernetes.io/profile: "web"            # or: scanners: "tls-scanner,http-headers-scanner"
+    samma-io.alpha.kubernetes.io/scheduler: "0 3 * * *"    # repeat daily at 03:00; default is weekly
+    samma-io.alpha.kubernetes.io/compliance: "pci-dss"     # samma.io adds a PCI ASV scanner
+spec:
+  rules:
+    - host: pay.example.com
+      # ...
 ```
 
-Without a `profile` or `scanners` annotation, the `default` profile is used. Deleting the Ingress
-removes the scanners again.
+| Annotation (`samma-io.alpha.kubernetes.io/…`) | What it does |
+|---|---|
+| `enable` | Turns scanning on for this Ingress. Any value counts, even `"false"`, so remove the annotation to turn scanning off. |
+| `profile` | One or more profiles, comma-separated (see the table above). |
+| `scanners` | An explicit list of scanners, used when there is no `profile`. |
+| `scheduler` | Cron expression for the repeat scan. |
+| `samma_io_tags` | Comma-separated tags added to every finding. |
+| `compliance` | Compliance tags, e.g. `pci-dss`. samma.io runs the matching validated vendor scanner. Needs the samma.io connection below. |
 
-**Send discovered hosts to the dashboard.** Install the operator chart with a dashboard API token
-(chapter 4, step 5). The operator then also registers each discovered host as a target in your
-organisation:
+Without a `profile` or `scanners` annotation, the `default` profile is used.
+
+**The scanners live and die with the Ingress.**
+
+- **Ingress created:** the operator creates one `Scanner` per scanner and host. Each one runs once
+  straight away and then on its schedule.
+- **Ingress deleted:** the operator removes those scanners again. samma.io also stops the external
+  and vendor scans for it. A target that is gone no longer costs anything. Until the known issue in
+  [chapter 4](../4-first-scan/README.md#cleaning-up-a-target-known-issue) is fixed, also delete the
+  leftover detect CronJobs by hand.
+- **Annotations changed:** the operator reads annotations when the Ingress is created. After you
+  change them, recreate the Ingress (`kubectl replace --force -f ingress.yaml`, or delete and let
+  ArgoCD/Flux re-create it) so the new set of scanners is used.
+
+**Choose scanners per target.** You don't need the same scanner, or the same vendor, everywhere.
+Put `detect` on internal tools, `web` on public sites, and `compliance: pci-dss` only on the
+Ingresses in your PCI scope. Each one gets what it needs, and you only pay for vendor scans where
+they are required.
+
+**Connect to samma.io: share hosts, add external and vendor scanners.** Install the operator chart
+with a dashboard API token (chapter 4, step 5). The operator then registers each discovered host as
+a target in your organisation. samma.io adds external scanners to it, plus the vendor scanners its
+`compliance` tag asks for, and the results come back to your Grafana:
 
 ```sh
 helm upgrade samma-operator helm/samma-operator --reuse-values \

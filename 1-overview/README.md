@@ -8,7 +8,7 @@ Samma has two parts that answer two different questions:
 | Input | targets you add: hostnames or IPs | logs: CloudTrail, VPC flow, DNS, GitHub, Slack, 1Password, Google, Cloudflare, … |
 | Runs on | any Kubernetes cluster | your AWS account (S3, SQS, ECS Fargate, Lambda) |
 | Output | findings per target in the Samma dashboard and Grafana | Sigma alerts in Slack / GitHub, search in Quickwit, Grafana and Athena |
-| Chapters | 2–5 | 6–7 |
+| Chapters | 1a–5 | 6–7 |
 
 They are **independent**. You can run either one without the other.
 
@@ -18,6 +18,26 @@ the AWS SIEM watches your cloud accounts. [Chapter 8](../8-kubernetes-siem/READM
 compares the two SIEMs.
 
 ## The scanner
+
+Samma scanners are open-source security scanners that you deploy into any Kubernetes cluster:
+
+- **They follow your Ingresses.** Annotate an Ingress and the operator starts scanners against its
+  hosts. They look for TLS problems, missing security headers, open ports and OWASP-style web
+  findings. Delete the Ingress and its scanners are removed.
+- **samma.io adds the outside view.** Connect the operator to the samma.io portal and your external
+  hosts are shared with it. samma.io adds external scanners, which give you a security baseline.
+- **Compliance scanners where you need them.** Tag an Ingress, for example with `pci-dss`, and
+  samma.io runs a validated vendor scanner, such as a PCI ASV, against that endpoint. Use different
+  vendors for different targets.
+- **Results in your own Grafana.** All findings come back to Grafana inside your cluster, per
+  target.
+- **All of it in git.** Scanning is controlled by Ingress annotations, so it is reviewed and
+  versioned with the rest of your manifests.
+
+The right endpoints get the right scanners, and the cost stops when a target goes away.
+[Chapter 1a](../1a-the-scanners/README.md) describes every scanner and what to use it for.
+
+This is how a target becomes findings:
 
 ```
  you ──► Samma dashboard (Next.js)  ──PUT /target──►  operator API ──► Scanner resources (CRD)
@@ -77,6 +97,7 @@ Chapter 8 explains it, and when to pick it over, or alongside, the AWS SIEM.
 
 | Step | You will |
 |---|---|
+| [1a. The scanners](../1a-the-scanners/README.md) | learn what each scanner checks, and how external and vendor scanners fit in |
 | [2. Run a scanner locally](../2-run-a-scanner-locally/README.md) | run one scanner with Docker and read its findings. You need only Docker. |
 | [3. Deploy the scanner](../3-deploy-the-scanner/README.md) | install the operator stack and the dashboard in Kubernetes |
 | [4. Your first scan](../4-first-scan/README.md) | add a target, watch the scan run, and find the results |

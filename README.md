@@ -2,8 +2,10 @@
 
 A hands-on guide to the parts of Samma:
 
-- **Samma scanner:** find out what the outside world can see of your hosts (open ports, TLS
-  certificates, security headers, DNS and more), track it over time, and spot what changed.
+- **Samma scanner:** open-source scanners that you deploy into your Kubernetes cluster. They pick
+  up your Ingresses and scan them for TLS, security header, port and OWASP-style findings. Connect
+  to samma.io to add external scanners and validated vendor scanners (such as PCI DSS) per Ingress.
+  All results come back to Grafana in your own cluster.
 - **Samma AWS SIEM:** collect logs from your AWS accounts, GitHub and SaaS tools, run Sigma
   detections on them, send alerts to Slack and GitHub, and search everything in Grafana.
 - **Samma Kubernetes SIEM:** run YAML detection rules on events inside a cluster, over NATS, with
@@ -17,6 +19,7 @@ Each chapter is a folder with a `README.md`. Work through them in order, or jump
 |---|---|---|---|
 | 1 | [What is Samma?](1-overview/README.md) | understand both parts and how they fit together | a browser |
 | **Scanner** | | | |
+| 1a | [The scanners](1a-the-scanners/README.md) | learn what each scanner checks, and how external and vendor scanners fit in | a browser |
 | 2 | [Run a scanner locally](2-run-a-scanner-locally/README.md) | run scanners with Docker, read findings, watch them travel over NATS | Docker |
 | 3 | [Deploy the scanner](3-deploy-the-scanner/README.md) | install the operator stack and the Samma dashboard | a Kubernetes cluster, `kubectl`, `helm` |
 | 4 | [Your first scan](4-first-scan/README.md) | add a target via the dashboard, an API token or the operator API, and read the results | chapter 3 |
@@ -27,12 +30,12 @@ Each chapter is a folder with a `README.md`. Work through them in order, or jump
 | **Kubernetes SIEM** | | | |
 | 8 | [The Kubernetes SIEM, and how it fits with the AWS SIEM](8-kubernetes-siem/README.md) | run the in-cluster SIEM, and decide which SIEM to run, or both | a Kubernetes cluster, `kubectl`, `helm` |
 
-Only interested in one part? The scanner is chapters 1–5. The AWS SIEM is chapters 1, 6 and 7. The
+Only interested in one part? The scanner is chapters 1–5 (including 1a). The AWS SIEM is chapters 1, 6 and 7. The
 Kubernetes SIEM is chapters 1 and 8. Not sure which SIEM you need? Chapter 8 compares them.
 
 ## Who is this for?
 
-- **Chapters 1, 4 (dashboard part) and 6** need no tooling. They explain what happens and where to
+- **Chapters 1, 1a, 4 (dashboard part) and 6** need no tooling. They explain what happens and where to
   look.
 - **Chapters 2, 3, 5, 7 and 8** assume you are comfortable with a terminal, Docker, and either
   Kubernetes (scanner) or AWS and Terraform (SIEM).
