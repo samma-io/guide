@@ -12,10 +12,9 @@ Samma has two parts that answer two different questions:
 
 They are **independent**. You can run either one without the other.
 
-There is also a third, smaller part: the **Kubernetes SIEM**. It runs YAML detection rules on
-events inside a cluster, over NATS. It doesn't replace the AWS SIEM. It watches the cluster, while
-the AWS SIEM watches your cloud accounts. [Chapter 8](../8-kubernetes-siem/README.md) covers it and
-compares the two SIEMs.
+The SIEM also runs **on Kubernetes**. It uses the same services and Sigma rules, but runs over NATS
+JetStream instead of S3 and SQS, and stores alerts in PostgreSQL.
+[Chapter 8](../8-kubernetes-siem/README.md) covers it.
 
 ## The scanner
 
@@ -73,13 +72,13 @@ This is how a target becomes findings:
 
 Chapters 6 and 7 explain this part in depth.
 
-## The Kubernetes SIEM
+## The SIEM on Kubernetes
 
 ```
- container logs ─► Fluent Bit ─► Vector ─► NATS samma.logs.> ─► SIEM (YAML rules) ─► NATS samma.alerts.> ─► Elasticsearch / Loki ─► Grafana
+ NATS samma.logs.<lane> ─► detection-engine (Sigma) ─► NATS samma.alerts.<lane> ─► alert-destination ─► PostgreSQL siem_alerts
 ```
 
-Chapter 8 explains it, and when to pick it over, or alongside, the AWS SIEM.
+Chapter 8 explains it.
 
 ## Repositories
 
@@ -91,7 +90,7 @@ Chapter 8 explains it, and when to pick it over, or alongside, the AWS SIEM.
 | [`deploy`](https://github.com/samma-io/deploy) | scanner | GitOps (ArgoCD) manifests for the dashboard |
 | [`aws-siem`](https://github.com/samma-io/aws-siem) | SIEM | Terraform for the whole AWS SIEM, docs and contracts |
 | `vector`, `ingester`, `detection-engine`, `alert-destination`, `quickwit`, `grafana` | SIEM | The SIEM services |
-| [`siem`](https://github.com/samma-io/siem), [`siem-rules`](https://github.com/samma-io/siem-rules) | K8s SIEM | The in-cluster rule engine and its YAML rules |
+| [`siem`](https://github.com/samma-io/siem), [`siem-rules`](https://github.com/samma-io/siem-rules) | legacy | The original in-cluster YAML rule engine, replaced by the SIEM on Kubernetes |
 
 ## The path through this guide
 
@@ -104,7 +103,7 @@ Chapter 8 explains it, and when to pick it over, or alongside, the AWS SIEM.
 | [5. Targets, profiles and baselines](../5-targets-profiles-baselines/README.md) | choose scanners, automate targets, and spot changes over time |
 | [6. AWS SIEM: how the data flows](../6-aws-siem-data-flow/README.md) | understand the SIEM pipeline end to end |
 | [7. Deploy your own AWS SIEM](../7-aws-siem-deploy/README.md) | deploy the SIEM into a clean AWS account, including SSM setup for every source |
-| [8. The Kubernetes SIEM](../8-kubernetes-siem/README.md) | run the in-cluster SIEM, and compare the two SIEMs |
+| [8. The SIEM on Kubernetes](../8-kubernetes-siem/README.md) | run detection over NATS with alerts in Postgres |
 
 You only want the SIEM? Skip to chapter 6.
 
