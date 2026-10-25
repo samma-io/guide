@@ -8,8 +8,8 @@ A hands-on guide to the parts of Samma:
   All results come back to Grafana in your own cluster.
 - **Samma AWS SIEM:** collect logs from your AWS accounts, GitHub and SaaS tools, run Sigma
   detections on them, send alerts to Slack and GitHub, and search everything in Grafana.
-- **Samma Kubernetes SIEM:** run YAML detection rules on events inside a cluster, over NATS, with
-  alerts in Elasticsearch or Loki and Grafana.
+- **Samma SIEM on Kubernetes:** the same SIEM inside a cluster, over NATS JetStream, with alerts in
+  PostgreSQL.
 
 Each chapter is a folder with a `README.md`. Work through them in order, or jump to the part you need.
 
@@ -28,10 +28,10 @@ Each chapter is a folder with a `README.md`. Work through them in order, or jump
 | 6 | [AWS SIEM: how the data flows](6-aws-siem-data-flow/README.md) | follow a log from ingest through detection to alerts and search | a browser |
 | 7 | [Deploy your own AWS SIEM](7-aws-siem-deploy/README.md) | deploy into a clean AWS account and set up SSM for alerting and every source | AWS account, Terraform, Docker |
 | **Kubernetes SIEM** | | | |
-| 8 | [The Kubernetes SIEM, and how it fits with the AWS SIEM](8-kubernetes-siem/README.md) | run the in-cluster SIEM, and decide which SIEM to run, or both | a Kubernetes cluster, `kubectl`, `helm` |
+| 8 | [The SIEM on Kubernetes](8-kubernetes-siem/README.md) | run detection over NATS with alerts in Postgres, and smoke-test it with a Google Workspace event | a Kubernetes cluster with JetStream NATS and PostgreSQL, `kubectl` |
 
 Only interested in one part? The scanner is chapters 1–5 (including 1a). The AWS SIEM is chapters 1, 6 and 7. The
-Kubernetes SIEM is chapters 1 and 8. Not sure which SIEM you need? Chapter 8 compares them.
+SIEM on Kubernetes is chapters 1, 6 and 8.
 
 ## Who is this for?
 
@@ -50,10 +50,10 @@ Only scan hosts you own or have written permission to test. The examples use `sc
 | Part | Repositories |
 |---|---|
 | Scanner | [app](https://github.com/samma-io/app), [operator](https://github.com/samma-io/operator), [detect](https://github.com/samma-io/detect), [deploy](https://github.com/samma-io/deploy) |
-| Kubernetes SIEM | [siem](https://github.com/samma-io/siem), [siem-rules](https://github.com/samma-io/siem-rules), [siem-storage](https://github.com/samma-io/siem-storage) |
-| AWS SIEM | [aws-siem](https://github.com/samma-io/aws-siem), [vector](https://github.com/samma-io/vector), [ingester](https://github.com/samma-io/ingester), [detection-engine](https://github.com/samma-io/detection-engine), [alert-destination](https://github.com/samma-io/alert-destination), [quickwit](https://github.com/samma-io/quickwit), [grafana](https://github.com/samma-io/grafana) |
+| SIEM (AWS and Kubernetes) | [aws-siem](https://github.com/samma-io/aws-siem), [vector](https://github.com/samma-io/vector), [ingester](https://github.com/samma-io/ingester), [detection-engine](https://github.com/samma-io/detection-engine), [alert-destination](https://github.com/samma-io/alert-destination), [quickwit](https://github.com/samma-io/quickwit), [grafana](https://github.com/samma-io/grafana) |
 
 ## Legacy guide
 
-The original chapters, for the first-generation Samma on Elasticsearch and Kibana, are kept in
-[`legacy/`](legacy/README.md). They are no longer maintained.
+The original chapters are kept in [`legacy/`](legacy/README.md) and are no longer maintained. They
+cover the first-generation Samma on Elasticsearch and Kibana, and the original custom-engine
+Kubernetes SIEM.

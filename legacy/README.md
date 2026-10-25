@@ -23,6 +23,7 @@ Kibana, Grafana on Elasticsearch, and Filebeat shipping. It used the classic sca
 | [5-monitor-the-delta-notech](5-monitor-the-delta-notech/README.md) | baselines and Grafana alerts on change | [5. Targets, profiles and baselines](../5-targets-profiles-baselines/README.md) |
 | [6-localscanner](6-localscanner/README.md) | run a scanner with `docker run` | [2. Run a scanner locally](../2-run-a-scanner-locally/README.md) |
 | [7-pipleline-scanner](7-pipleline-scanner/README.md) | target lists in git + CI | [5. Targets, profiles and baselines](../5-targets-profiles-baselines/README.md) |
+| [8-kubernetes-siem-custom-engine](8-kubernetes-siem-custom-engine/README.md) | the YAML rule engine in `siem` over NATS, alerts in Elasticsearch or Loki | [8. The SIEM on Kubernetes](../8-kubernetes-siem/README.md) |
 | [scanboxes](scanboxes/README.md) | a VM with kubeadm + Samma | [3. Deploy the scanner](../3-deploy-the-scanner/README.md) |
 
 > These chapters are **not maintained**. Parts of them no longer work:
