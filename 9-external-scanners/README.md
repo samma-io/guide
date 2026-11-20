@@ -7,9 +7,10 @@ targets, and its runs show up next to Samma's in the dashboard. Each external sc
 This is how Samma adds third-party scanners to the feed. The first one is `samma-demo`, a demo
 scanner for trying out the flow; more will follow.
 
-> **Status.** Connecting a scanner, enabling it on a profile and the scanner dashboard all work.
-> External scanners are **not run yet**: the runs and costs you see for them are demo data,
-> marked **Demo data** in the dashboard.
+> **Status.** External scanners run for real: a new target in a profile starts a scan, and its
+> result shows on the target page. `samma-demo` is backed by
+> [samma-io/external-scanner](https://github.com/samma-io/external-scanner), a placeholder scanner
+> that checks each target answers over HTTPS.
 
 ## 1. Connect the scanner
 
@@ -49,6 +50,36 @@ $5.00          × 2                      = $10.00
 Untick it to stop. Removing a connection on the **Scanners** page also removes it from every
 profile.
 
+## 4. What happens when a target is added
+
+```
+Samma                                   external-scanner
+  │  POST /scans  {target, port, samma_id}   │
+  │  Authorization: Bearer <your API key>    │
+  │ ───────────────────────────────────────▶ │  checks the key, makes a uuid,
+  │ ◀─────────────────── 202 {uuid}          │  starts the scan in the background
+  │  stores the run (uuid, when, which key)  │  … writes results/<uuid>.json
+  │                                          │
+  │  (someone opens the target or Scanners page)
+  │  GET /scans/<uuid>                       │
+  │ ───────────────────────────────────────▶ │
+  │ ◀──── 200 application/json  (or 202)     │
+  │  stores the result, shows it             │
+```
+
+1. You add a target to a profile with the scanner enabled (in the dashboard or with the API).
+   Samma sends it to the scanner with the connection's API key. Local targets are never sent.
+2. The scanner answers with a scan id; the run shows as **running**.
+3. Open the target's page (or **Scanners**) once the scan is done: Samma fetches the result and
+   shows it under **External scans**. Results are fetched when a page is opened, so reload to see
+   a run finish.
+4. **Rescan** on the target page scans it again with that scanner.
+
+A result must be `application/json`. If it has a `findings` list, each finding (`title`,
+`severity`, `detail`) is shown as a row; anything else is shown as JSON. A run that the scanner
+refuses (for example a wrong API key), that reports `"status": "failed"`, or that does not finish
+within 24 hours is marked **failed** and not charged.
+
 ## Pricing
 
 | Scanner | Price |
@@ -68,11 +99,21 @@ price change applies only to new connections. Samma's own scanners have no per-s
 - **Recent runs**: when each run happened, the scanner, the target (links to its results), the
   outcome, the number of findings and the cost
 
-Internal runs come from the scan results database. Where there is none, for example on a local
-development setup, they are demo data too.
+External runs are the real runs described above. Internal runs come from the scan results
+database; where there is none, for example on a local development setup, they are demo data.
+
+## Run your own external scanner
+
+```bash
+git clone git@github.com:samma-io/external-scanner.git && cd external-scanner
+SCANNER_API_KEY=sd_change_me docker compose up --build    # :8080
+```
+
+Connect it in **Scanners** with the same key. Where Samma calls it is set in the scanner catalog
+(`apiUrl` in the app's `src/lib/external-scanners.ts`), or per environment with
+`EXTERNAL_SCANNER_URL_SAMMA_DEMO`. The API is in the external-scanner README.
 
 ## Next
 
-External scanners will be run on the profile's schedule, with their findings landing next to the
-internal scanners'. Vendor and compliance scanners are described in
+External scanners will also run on the profile's schedule. Vendor and compliance scanners are described in
 [chapter 1a](../1a-the-scanners/README.md#vendor-and-compliance-scanners).
