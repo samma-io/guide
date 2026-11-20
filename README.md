@@ -24,13 +24,14 @@ Each chapter is a folder with a `README.md`. Work through them in order, or jump
 | 3 | [Deploy the scanner](3-deploy-the-scanner/README.md) | install the operator stack and the Samma dashboard | a Kubernetes cluster, `kubectl`, `helm` |
 | 4 | [Your first scan](4-first-scan/README.md) | add a target via the dashboard, an API token or the operator API, and read the results | chapter 3 |
 | 5 | [Targets, profiles and baselines](5-targets-profiles-baselines/README.md) | choose scanners, scan Ingresses and git-managed targets, and find what changed | chapter 3 |
+| 9 | [Connect external scanners](9-external-scanners/README.md) | connect a third-party scanner with its API key, enable it on a target group, and see runs and cost | the dashboard |
 | **AWS SIEM** | | | |
 | 6 | [AWS SIEM: how the data flows](6-aws-siem-data-flow/README.md) | follow a log from ingest through detection to alerts and search | a browser |
 | 7 | [Deploy your own AWS SIEM](7-aws-siem-deploy/README.md) | deploy into a clean AWS account and set up SSM for alerting and every source | AWS account, Terraform, Docker |
 | **Kubernetes SIEM** | | | |
 | 8 | [The SIEM on Kubernetes](8-kubernetes-siem/README.md) | run detection over NATS with alerts in Postgres, and smoke-test it with a Google Workspace event | a Kubernetes cluster with JetStream NATS and PostgreSQL, `kubectl` |
 
-Only interested in one part? The scanner is chapters 1–5 (including 1a). The AWS SIEM is chapters 1, 6 and 7. The
+Only interested in one part? The scanner is chapters 1–5 (including 1a) and 9. The AWS SIEM is chapters 1, 6 and 7. The
 SIEM on Kubernetes is chapters 1, 6 and 8.
 
 ## Who is this for?
