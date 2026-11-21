@@ -102,6 +102,15 @@ price change applies only to new connections. Samma's own scanners have no per-s
 External runs are the real runs described above. Internal runs come from the scan results
 database; where there is none, for example on a local development setup, they are demo data.
 
+## Results in your cluster
+
+With the operator's [collector](https://github.com/samma-io/operator#collector) on, external results
+come back to your cluster like Samma's own: `GET /api/v1/targets/<id>/results` lists them under the
+scanner name `external:<id>` (for example `external:samma-demo`), so they show up as
+`samma_findings{scanner="external:samma-demo"}` and as `samma.finding` log lines. The collector's
+poll also fetches results still in progress, so nobody has to open the dashboard first. The
+partner's detail text is never written to the logs.
+
 ## Run your own external scanner
 
 ```bash
