@@ -44,7 +44,7 @@ costs:
 
 ```
 price per scan × targets in the profile = cost per run
-$5.00          × 2                      = $10.00
+€1.00          × 2                      = €2.00
 ```
 
 Untick it to stop. Removing a connection on the **Scanners** page also removes it from every
@@ -84,7 +84,7 @@ within 24 hours is marked **failed** and not charged.
 
 | Scanner | Price |
 |---|---|
-| Samma Demo Scanner (`samma-demo`) | $5.00 per scan, per target |
+| Samma Demo Scanner (`samma-demo`) | €1.00 per scan, per target |
 
 Every target in the profile is one scan, so each run costs the price × the number of targets.
 A failed run is not charged. The price is fixed for a connection when you make it, so a later
