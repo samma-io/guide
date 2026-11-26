@@ -12,7 +12,7 @@ Everything is installed by one Helm chart, `chart/samma-siem` in the
 
 - How a log record becomes an alert row in Postgres over NATS.
 - Which streams, subjects and consumers the services use.
-- How to install the chart: lanes, Secrets, MinIO or your own S3, Postgres, Quickwit and Grafana.
+- How to install the chart: detections, Secrets, MinIO or your own S3, Postgres, Quickwit and Grafana.
 - How to add a Sigma rule and how to change the alert routes.
 - How to reach Grafana and Quickwit, and where every piece of data is kept.
 - What is not on Kubernetes yet.
@@ -153,12 +153,13 @@ Each service creates its own tables when it starts:
 ### 2. Your values
 
 Start with a small values file. The defaults install NATS, MinIO, every pipeline service and the
-`workspace` lane:
+`workspace` detection. You pick detections, and the chart deploys each one's lane (see
+[Detections](#detections) below):
 
 ```yaml
 # siem-values.yaml
-lanes:
-  - workspace
+detections:
+  workspace: {enabled: true}
 nats:
   natsBox:
     enabled: true   # a shell with the nats CLI, used in the smoke test below
@@ -190,33 +191,44 @@ With the release name `samma-siem`, everything is called `samma-siem-<part>`:
 Nothing is exposed outside the cluster. Every Service is ClusterIP and the chart renders no
 Ingress.
 
-### Lanes
+### Detections
 
-Each entry in `lanes` adds `samma.logs.<lane>` to `SIEM_LOGS`, a `detection-engine-<lane>`
-consumer and Deployment, and the storage consumers' filter. A lane with raw records also gets
-`samma.raw.<lane>` in `SIEM_RAW` and a `vector-<lane>` consumer. Write `{name: <lane>, raw: false}`
-for a lane without raw records. Adding a lane is a values change and an upgrade. Size
-`streams.logs.maxBytes` for the new lane's volume.
-
-The default image of detection-engine (`d5d7439`) knows the SaaS lanes only. The `k8s` and
-`scanner` lanes and their rules are in detection-engine `main` from `0c5b5ce` on. That image is not
-published yet, so build it first (see [Add a Sigma rule](#add-a-sigma-rule), step 4), then:
+Switch on what you want detected. For each detection the chart deploys the whole lane: the
+streams and consumers, a `detection-engine-<lane>`, and the input where the chart can run it.
 
 ```yaml
-# k8s-lane.yaml
-lanes:
-  - workspace
-  - {name: k8s, raw: false}   # Kubernetes audit events, no raw records
-detectionEngine:
-  tag: 0c5b5ce                # an image built from detection-engine main, 0c5b5ce or later
+# detections.yaml
+detections:
+  workspace: {enabled: true}
+  osquery: {enabled: true}
+  wazuh: {enabled: true}
+  traefik: {enabled: true, namespaces: [traefik]}
+osqueryGateway:
+  existingSecret: osquery-gateway-tls   # server.crt, server.key, ca.crt
 ```
 
 ```bash
-helm upgrade --install samma-siem chart/samma-siem -n samma-siem -f siem-values.yaml -f k8s-lane.yaml
+helm upgrade --install samma-siem chart/samma-siem -n samma-siem -f siem-values.yaml -f detections.yaml
 ```
 
-Nothing in the chart publishes to `samma.logs.k8s` or `samma.logs.scanner` yet. See
-[What is not on Kubernetes yet](#what-is-not-on-kubernetes-yet).
+| Detection | The chart deploys | You connect |
+|---|---|---|
+| `workspace` | the Google Workspace ingester, Vector, the engine | a service-account credential (see [Go live with Workspace](#go-live-with-workspace)) |
+| `slack`, `onepassword`, `cloudflare` | the ingester for that source, the engine | a token Secret. Records are pulled but not detected yet: Vector normalises only Workspace on Kubernetes |
+| `osquery` | the osquery gateway (mutual TLS) and the engine | osquery-client hosts, and a NodePort or LoadBalancer for hosts outside the cluster (`osqueryGateway.service`) |
+| `wazuh` | the engine | a Wazuh manager that publishes its alerts to `samma.logs.wazuh` |
+| `k8s` | the engine | API server audit events on `samma.logs.k8s`. Grow the JetStream PVC to 4Gi first: this lane adds 2GiB to `SIEM_LOGS` |
+| `scanner` | the engine | Samma scanners publishing to `samma.logs.scanner` |
+| `traefik` | the log router and the engine | a node shipper and the Traefik access log, see [chapter 10](../10-kubernetes-service-logs/README.md) |
+
+After the install, `helm status samma-siem -n samma-siem` lists every enabled detection with what
+still has to feed it, including the addresses of the router and the gateway.
+
+Under the hood each detection adds `samma.logs.<lane>` to `SIEM_LOGS` (Traefik: `SIEM_SERVICES`), a
+`detection-engine-<lane>` consumer and Deployment, and the storage consumers' filter. A lane with
+raw records also gets `samma.raw.<lane>` in `SIEM_RAW` and a `vector-<lane>` consumer. The default
+detection-engine image (`5a4e082`) knows every lane above. For a lane the catalog does not have yet,
+the chart still takes `lanes` and `serviceLanes` directly; see the chart README.
 
 ### MinIO or your own S3
 
@@ -653,15 +665,14 @@ never touches it.
 
 ## What is not on Kubernetes yet
 
-- **The `k8s` and `scanner` lanes.** Their rules are in detection-engine `main`, but no published
-  image has them: build one from `0c5b5ce` or later. Nothing publishes to their subjects yet
-  either. The `k8s` lane needs a shipper that publishes one Kubernetes audit event per message to
+- **Inputs for the `k8s` and `scanner` detections.** The default engine image has their rules, but
+  the chart runs no input for them. The `k8s` lane needs a shipper that publishes one Kubernetes audit event per message to
   `samma.logs.k8s`. The `scanner` lane needs a relay from the scanners' `samma-io.scan` subjects to
   `samma.logs.scanner`. Until then, anything that can publish NDJSON to `samma.logs.<lane>` can feed
   a lane.
-- **Ingest for lanes other than Workspace.** The Slack, 1Password and Cloudflare pullers still read
-  their tokens from AWS SSM. Vector's Kubernetes configuration reads only the Workspace lane, so
-  another raw lane needs a Vector image whose configuration reads it.
+- **Detection on Slack, 1Password and Cloudflare.** Their detections deploy the ingesters, which read
+  their tokens from a Secret, but Vector's Kubernetes configuration normalises only the Workspace
+  lane. Their records stay in `SIEM_RAW` until a Vector image reads those lanes.
 - **Slack and GitHub alerts.** Alerts go to Postgres only, as described in
   [Configure the routes](#configure-the-routes).
 - **Published Quickwit and Grafana images.** You build them yourself.

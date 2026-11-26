@@ -9,7 +9,7 @@ You opt a workload in with one pod label. The SIEM decides which labels it accep
 ## What you will learn
 
 - How a pod's log line becomes an alert, and what the log router allows through.
-- How to turn on service lanes in the `samma-siem` chart.
+- How to turn on the Traefik detection in the `samma-siem` chart.
 - How to connect a node log shipper (fluent-bit or a Vector agent).
 - How to turn on Traefik's JSON access log and opt Traefik in.
 - How to check every hop, trigger a test alert, and read the Traefik rules.
@@ -48,24 +48,24 @@ for detection only: siem-storage does not copy them into `siem_events`.
 ## Before you start
 
 You need:
-- the SIEM from chapter 8, installed from `samma-siem` chart **0.4.0 or later**
-- detection-engine image **`5a4e082` or later** (the chart default from 0.4.0), which knows the
+- the SIEM from chapter 8, installed from `samma-siem` chart **0.5.0 or later**
+- detection-engine image **`5a4e082` or later** (the chart default), which knows the
   `traefik` lane
 - Traefik installed with its Helm chart (v31 or later), in namespace `traefik` in the examples
 - a node log shipper, or permission to install one
 
-## 1. Turn on the Traefik service lane
+## 1. Turn on the Traefik detection
 
-Add the lane to your chart values, with the namespaces allowed to feed it:
+Turn on the detection, with the namespaces allowed to feed it:
 
 ```yaml
-# service-lanes.yaml
-serviceLanes:
-  - {name: traefik, namespaces: [traefik]}
+# traefik-detection.yaml
+detections:
+  traefik: {enabled: true, namespaces: [traefik]}
 ```
 
 ```bash
-helm upgrade samma-siem chart/samma-siem -n samma-siem -f siem-values.yaml -f service-lanes.yaml
+helm upgrade samma-siem chart/samma-siem -n samma-siem -f siem-values.yaml -f traefik-detection.yaml
 ```
 
 The upgrade adds:
@@ -280,8 +280,8 @@ reaches the cluster.
 
 ## Add another service
 
-1. Add the lane to `serviceLanes` with its namespaces, for example
-   `{name: vault, namespaces: [vault]}`.
+1. Turn on its detection if the chart has one. For a lane the chart's catalog does not have yet,
+   list it in `serviceLanes` with its namespaces, for example `{name: vault, namespaces: [vault]}`.
 2. Label that service's pods `samma.io/detection: vault`.
 3. The detection engine must know the lane: a new lane name needs a registry entry and a
    `rules/<lane>/` folder in detection-engine, and an image built from it. Until then its engine
@@ -295,7 +295,7 @@ reaches the cluster.
 | Other pods' logs arrive, but not Traefik's | The label is on the Deployment, not the pod template, or the namespace is not listed for the lane. |
 | Records arrive but have no `RequestPath` | The access log is off, or not in JSON. |
 | No `request_User-Agent` field | The access log drops headers; keep `User-Agent` as in step 3. |
-| The engine restarts with `consumer not found` | The streams Job has not run since `serviceLanes` changed: run `helm upgrade` again. |
+| The engine restarts with `consumer not found` | The streams Job has not run since the detections changed: run `helm upgrade` again. |
 | The engine refuses the lane | Its image is older than `5a4e082`. |
 
 ## Where the data lives
