@@ -30,15 +30,16 @@ Each chapter is a folder with a `README.md`. Work through them in order, or jump
 | 7 | [Deploy your own AWS SIEM](7-aws-siem-deploy/README.md) | deploy into a clean AWS account and set up SSM for alerting and every source | AWS account, Terraform, Docker |
 | **Kubernetes SIEM** | | | |
 | 8 | [The SIEM on Kubernetes](8-kubernetes-siem/README.md) | run detection over NATS with alerts in Postgres, and smoke-test it with a Google Workspace event | a Kubernetes cluster with JetStream NATS and PostgreSQL, `kubectl` |
+| 10 | [Kubernetes service logs: Traefik](10-kubernetes-service-logs/README.md) | label a workload, ship its logs to a detection lane, and get alerts on Traefik access logs | chapter 8, a node log shipper |
 
 Only interested in one part? The scanner is chapters 1–5 (including 1a) and 9. The AWS SIEM is chapters 1, 6 and 7. The
-SIEM on Kubernetes is chapters 1, 6 and 8.
+SIEM on Kubernetes is chapters 1, 6, 8 and 10.
 
 ## Who is this for?
 
 - **Chapters 1, 1a, 4 (dashboard part) and 6** need no tooling. They explain what happens and where to
   look.
-- **Chapters 2, 3, 5, 7 and 8** assume you are comfortable with a terminal, Docker, and either
+- **Chapters 2, 3, 5, 7, 8 and 10** assume you are comfortable with a terminal, Docker, and either
   Kubernetes (scanner) or AWS and Terraform (SIEM).
 
 ## Before you start
@@ -51,7 +52,7 @@ Only scan hosts you own or have written permission to test. The examples use `sc
 | Part | Repositories |
 |---|---|
 | Scanner | [app](https://github.com/samma-io/app), [operator](https://github.com/samma-io/operator), [detect](https://github.com/samma-io/detect), [deploy](https://github.com/samma-io/deploy) |
-| SIEM (AWS and Kubernetes) | [aws-siem](https://github.com/samma-io/aws-siem), [vector](https://github.com/samma-io/vector), [ingester](https://github.com/samma-io/ingester), [detection-engine](https://github.com/samma-io/detection-engine), [alert-destination](https://github.com/samma-io/alert-destination), [quickwit](https://github.com/samma-io/quickwit), [grafana](https://github.com/samma-io/grafana) |
+| SIEM (AWS and Kubernetes) | [aws-siem](https://github.com/samma-io/aws-siem), [vector](https://github.com/samma-io/vector), [ingester](https://github.com/samma-io/ingester), [detection-engine](https://github.com/samma-io/detection-engine), [alert-destination](https://github.com/samma-io/alert-destination), [k8s-log-router](https://github.com/samma-io/k8s-log-router), [siem](https://github.com/samma-io/siem), [quickwit](https://github.com/samma-io/quickwit), [grafana](https://github.com/samma-io/grafana) |
 
 ## Legacy guide
 
