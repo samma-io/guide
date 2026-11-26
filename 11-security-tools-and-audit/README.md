@@ -41,12 +41,12 @@ a router entry and a rules folder, nothing else.
 
 ## Before you start
 
-- The SIEM from chapter 8.
+- The SIEM from chapter 8, installed from `samma-siem` chart **0.6.0 or later**.
 - For flow A, the node shipper from chapter 10, step 2. Without it, nothing in this chapter
   except trivy-operator and the audit log reaches the SIEM.
-- A detection-engine image with the lanes you turn on: `keycloak`, `falco`, `trivy`,
-  `gatekeeper` and `openappsec` are new. An older image refuses to start a lane it does not
-  know.
+- detection-engine image **`98dd141` or later** (the chart 0.6.0 default). It knows the new
+  `keycloak`, `falco`, `trivy`, `gatekeeper` and `openappsec` lanes, and has the `k8s`
+  exec and secret-read fixes. An older image refuses to start a lane it does not know.
 
 ## 1. Keycloak
 
