@@ -31,9 +31,10 @@ Each chapter is a folder with a `README.md`. Work through them in order, or jump
 | **Kubernetes SIEM** | | | |
 | 8 | [The SIEM on Kubernetes](8-kubernetes-siem/README.md) | run detection over NATS with alerts in Postgres, and smoke-test it with a Google Workspace event | a Kubernetes cluster with JetStream NATS and PostgreSQL, `kubectl` |
 | 10 | [Kubernetes service logs: Traefik](10-kubernetes-service-logs/README.md) | label a workload, ship its logs to a detection lane, and get alerts on Traefik access logs | chapter 8, a node log shipper |
+| 11 | [Security tools, Keycloak and the API audit log](11-security-tools-and-audit/README.md) | add Keycloak, the API audit log, Falco, Gatekeeper, open-appsec and trivy-operator, each with one chart switch | chapter 10 |
 
 Only interested in one part? The scanner is chapters 1–5 (including 1a) and 9. The AWS SIEM is chapters 1, 6 and 7. The
-SIEM on Kubernetes is chapters 1, 6, 8 and 10.
+SIEM on Kubernetes is chapters 1, 6, 8, 10 and 11.
 
 ## Who is this for?
 
